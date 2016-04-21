@@ -1,6 +1,6 @@
 # Information Visualization for Swiss road accidents #
 
-Visualistaion of roads accidenty by year
+Visualistaion of roads accidents by year
 
 ## Sources ##
 - [Population](http://www.bfs.admin.ch/bfs/portal/en/index/themen/01/02/blank/key/bevoelkerungsstand.html)
