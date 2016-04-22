@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <title>Hello World</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
@@ -14,7 +16,7 @@
         </div>
         <div class="row">
             <div class="col-sm-2">
-                <img class="img-responsive" id="sign"/>
+                <img class="img-responsive" id="sign" />
             </div>
             <div class="col-sm-2">
                 <img class="img-responsive" id="alcool"/>
@@ -24,6 +26,11 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-2"></div>
         </div>
+
+        <div class="row">
+            <div id="swissmap"></div>
+            <div class="country-name"></div>
+        </div>
     </div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -31,6 +38,13 @@
     <script src="js/speed-sign.js"></script>
     <script src="js/alcool-sign.js"></script>
     <script src="js/application.js"></script>
+
+    <script src="bower_components/chroma-js/chroma.min.js"></script>
+    <script src="bower_components/topojson/topojson.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+
+    <script src="js/topojson-converter.js"></script>
+    <script src="js/swissmap.js"></script>
 </body>
 
 </html>
