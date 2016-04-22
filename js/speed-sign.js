@@ -1,5 +1,4 @@
 (function( $ ) {
-
     $.fn.speedSign = function(options) {
         var settings = $.extend({
             years: [
@@ -12,7 +11,7 @@
                     src: "img/speed/1984-1988.svg"
                 },
                 {
-                    to:100000,
+                    to:Infinity, // and beyond!
                     src: "img/speed/1989-.svg"
                 }
             ]
@@ -28,5 +27,4 @@
             }
         })
     };
-
 }( jQuery ));
