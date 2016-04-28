@@ -66,7 +66,7 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
             print(line)
 
             # add region to json
-            region_label = "region"
+            region_label = "regions"
             json_data["year"][year_label][region_label] = dict()
 
             while line[0] != "Total":            
