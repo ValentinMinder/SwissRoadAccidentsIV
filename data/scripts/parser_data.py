@@ -6,15 +6,15 @@ from copy import deepcopy
 import json
 
 def safe_int(s):
-    try: 
+    try:
         return int(s)
     except ValueError:
         return -1
-    
+
 # read file to write abbreviation instead of canton name
-with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file:    
+with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file:
     json_canton_abbr = json.load(cantons_abbr_file)
-    
+
     def get_canton_abbr(canton_name):
         for abbr_key, abbr_value in json_canton_abbr.items():
             if abbr_value["fr"] == canton_name:
@@ -25,7 +25,7 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
         # json labels
         json_canton_label = "cantons"
         json_year_label = "year"
-        
+
         json_data = dict()
         json_data[json_year_label] = dict()
         reader = csv.reader(csvfile, delimiter=',')
@@ -47,7 +47,6 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
 
             if first:
                 line_year = deepcopy(line)
-                first = False
             print("total year: %s -> %s" % (line_year[0], line_year[1]))
 
             # save data to json_data
@@ -62,15 +61,17 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
             json_data["year"][year_label]["lightly_injured"] = j_year_lightly_inj
 
             line = next(reader)
-            line = next(reader)
+            if first:
+                line = next(reader)
+                first = False
             print(line)
 
             # add region to json
             region_label = "regions"
             json_data["year"][year_label][region_label] = dict()
 
-            while line[0] != "Total":            
-                # retrieve region until meet "Total". 
+            while line[0] != "Total":
+                # retrieve region until meet "Total".
                 # At the end of the file break the loop to end it correctly
                 print(" "*3 + "region: " + line[0])
 
@@ -143,9 +144,8 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
             line_year = deepcopy(line)
 
             print("[end year]")
-            year -= 1   
+            year -= 1
 
         # dump json
         with open('../data.json', 'w', encoding="utf-8") as fp:
             json.dump(json_data, fp, indent=2, ensure_ascii=False)
-
