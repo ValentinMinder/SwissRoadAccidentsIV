@@ -1,0 +1,284 @@
+{
+ "1970": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1971": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1972": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1973": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1974": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1975": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1976": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1977": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1978": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1979": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1980": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1981": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1982": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1983": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "Infinity",
+  "highway": "Infinity"
+ },
+ "1984": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "50",
+  "highway": "Infinity"
+ },
+ "1985": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "50",
+  "highway": "Infinity"
+ },
+ "1986": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "50",
+  "highway": "Infinity"
+ },
+ "1987": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "50",
+  "highway": "Infinity"
+ },
+ "1988": {
+  "out_town": "Infinity",
+  "small_highway": "Infinity",
+  "in_town": "50",
+  "highway": "Infinity"
+ },
+ "1989": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1990": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1991": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1992": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1993": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1994": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1995": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1996": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1997": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1998": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "1999": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2000": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2001": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2002": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2003": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2004": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2005": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2006": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2007": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2008": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2009": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2010": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2011": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2012": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2013": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2014": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2015": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ },
+ "2016": {
+  "out_town": "80",
+  "small_highway": "100",
+  "in_town": "80",
+  "highway": "120"
+ }
+}
