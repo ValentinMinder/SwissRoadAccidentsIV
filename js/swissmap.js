@@ -2,6 +2,8 @@
 (function() {
     'use strict'
 
+    var jsonData;
+
     var map = L.map('swissmap', {
             maxZoom: 10,
             minZoom: 3
@@ -14,6 +16,12 @@
 
     map.setView([46.77, 8.2], 7.5); // center of Switzerland
     $.getJSON('data/ch-cantons.json').done(addTopoData);
+
+
+    $.getJSON("data/data.json", function(data) {
+        jsonData = data;
+    });
+
 
     function addTopoData(topoData) {
         topoLayer.addData(topoData);
@@ -33,8 +41,9 @@
             opacity: .5
         });
         layer.on({
-            mouseover: enterLayer,
-            mouseout: leaveLayer
+            // mouseover: enterLayer,
+            click: clickLayer
+                // mouseout: leaveLayer
         });
     }
 
@@ -55,6 +64,27 @@
         this.setStyle({
             weight: 1,
             opacity: .5
+        });
+    }
+
+    function clickLayer() {
+        var clickedCanton = this.feature.properties.abbr;
+        console.log("clic: " + clickedCanton);
+
+        console.log(this.feature.properties);
+        console.log(jsonData.year._1994);
+        //console.log(jsonData["1994"].dead);
+
+        $.each(jsonData.year._1994.regions, function(i, region) {
+            $.each(region.cantons, function(cantonName, cantonStats) {
+                console.log("count: " + Object.keys(region).length);
+                console.log(cantonName + " " + JSON.stringify(cantonStats));
+
+                if (cantonName == clickedCanton) {
+                    $countryName.text(cantonName + ": " + JSON.stringify(cantonStats)).show();
+                }
+            });
+
         });
     }
 }());
