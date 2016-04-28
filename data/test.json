@@ -1,0 +1,74 @@
+{
+	"year": {
+		"_1994": {
+			"total": 42,
+			"dead": 12,
+			"seriously_injured": 10,
+			"lightly_injured": 20,
+			"regions": {
+
+				"Région lémanique": {
+
+					"total": 12,
+					"dead": 3,
+					"seriously_injured": 3,
+					"lightly_injured": 6,
+
+					"cantons": {
+
+						"Vaud": {
+							"total": 3,
+							"dead": 1,
+							"seriously_injured": 1,
+							"lightly_injured": 1
+						},
+
+						"Valais": {
+							"total": 4,
+							"dead": 2,
+							"seriously_injured": 2,
+							"lightly_injured": 0
+						},
+
+						"Genève": {
+							"total": 5,
+							"dead": 0,
+							"seriously_injured": 0,
+							"lightly_injured": 5
+						}
+					}
+
+				},
+
+				"Espace Mittelland" : {
+
+
+					"total": 30,
+					"dead": 9,
+					"seriously_injured": 7,
+					"lightly_injured": 14,
+
+					"cantons": {
+
+						"Berne": {
+							"total": 18,
+							"dead": 6,
+							"seriously_injured": 4,
+							"lightly_injured": 8
+						},
+
+						"Jura": {
+							"total": 12,
+							"dead": 3,
+							"seriously_injured": 3,
+							"lightly_injured": 6
+						}
+
+					}
+
+				}
+
+			}
+		}
+	}
+}
