@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="26.098333mm"
+   height="21.963804mm"
+   viewBox="0 0 92.47441 77.824503"
+   id="svg5358"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="out_town.svg">
+  <defs
+     id="defs5360" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-373.04851"
+     inkscape:cy="96.055101"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5363">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-305.19137,-550.5928)">
+    <g
+       transform="translate(304.79137,420.86863)"
+       id="g4932">
+      <path
+         inkscape:connector-curvature="0"
+         id="path14"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:#000000;fill-rule:nonzero;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 0.4,191.38628 92.474409,0 0,-30.8123 -7.99995,-4.88747 0,0 c -2.91248,2.13748 -5.69996,3.81247 -6.41246,4.44997 l 0,0 -0.0875,15.8249 -1.88749,0 -0.05,-1.82499 -7.18745,-7.09995 -7.74995,6.92495 0.0125,2.04999 -1.21249,0.0375 0,-4.21248 -7.67495,-3.26247 -0.1125,-1.4625 -2.43749,-2.83748 -2.56248,2.76249 -0.05,1.53749 -6.712457,3.11248 0,9.31244 -2.199986,0.1125 -0.0875,-3.03749 -5.924962,-45.5997 -8.387447,42.96222 0.237499,5.67497 -1.899988,0 0.0125,-7.81245 -10.862431,-7.23746 -11.187428,7.07496 -0.05,18.24988 z" />
+      <polygon
+         transform="matrix(1.249992,0,0,-1.249992,-266.59829,735.0703)"
+         id="polygon62"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:#ff1721;fill-rule:nonzero;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         points="219.47,427.55 219.47,427.55 276.18,484.28 281.71,478.75 225,422.02 " />
+    </g>
+  </g>
+</svg>
