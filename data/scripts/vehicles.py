@@ -8,10 +8,12 @@ with open("../vehicles.csv", "r", encoding="utf-8") as f:
     for l in f:
         p = l.strip().split(";")
         d = OrderedDict()
+        d["ALL"] = 0
         year = p[0]
         p = p[1:]
         for c, e in zip(cantons, p):
             d[c] = int(e)
+        d["ALL"] = sum(d.values())
         data[year] = d
 
 with open("../vehicles.json", "w", encoding="utf-8") as f:
