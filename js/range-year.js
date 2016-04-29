@@ -2,7 +2,7 @@
     $.fn.rangeYear = function(options) {
         var settings = $.extend({
             // These are the defaults.
-            from: 1970,
+            from: 1975,
             to: 2015
         }, options );
         console.log("a", settings);
