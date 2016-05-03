@@ -17,4 +17,5 @@ $(document).ready(function() {
     $(document).on("year-change", function(e, y) {
         $("#year").text(y);
     });
+	$("#pichart").pieChart();
 });

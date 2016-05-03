@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/chart.css">
 </head>
 
 <body>
@@ -36,12 +37,18 @@
                 <div class="country-name"></div>
             </div>
         </div>
+		
+		<div class="row" id="piechart">
+			<canvas id="chart" width="600" height="500"></canvas>
+		</div>
+		
     </div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="js/range-year.js"></script>
     <script src="js/speed-sign.js"></script>
-    <script src="js/alcohol-sign.js"></script>
+    <script src="js/alcool-sign.js"></script>
+	<script src="js/pie-chart.js"></script>
     <script src="js/application.js"></script>
 
     <script src="bower_components/chroma-js/chroma.min.js"></script>
