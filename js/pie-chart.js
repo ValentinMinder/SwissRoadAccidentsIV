@@ -33,7 +33,7 @@
 	   
 	   depthLevel = 0;
 	   hierarchy = [];
-	   hierarchyArray = ["region","cantons", ""];
+	   hierarchyArray = ["regions","cantons", ""];
 	   currentYear = 1997;
 	   dataLoaded = false;
 	   
@@ -57,7 +57,7 @@
 		// Grab the data from the table,
 		// and assign click handlers to the table data cells
 		
-		$.getJSON("result.json", function(data) {
+		$.getJSON("data/data.json", function(data) {
 
 			statsData = data;
 			
