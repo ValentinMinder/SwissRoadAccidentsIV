@@ -14,7 +14,7 @@
 			maxDepthLevel: 2,
 			emptyRadius: 60,
 			middleTextFont: "20px 'Trebuchet MS', Verdana, sans-serif",
-			labelDistance: 50,
+			labelDistance: 52,
 			labelFont: "12px 'Trebuchet MS', Verdana, sans-serif",
 			textPadding: 3,
 			rootName: "Suisse",
@@ -422,12 +422,12 @@ function isCurrentLevelEmpty(settings)
 	
 	//Draw a white rectangle around the text
 	context.fillStyle = "rgb(255, 255, 255)";
-	context.fillRect(textLocationX - textWidth/2 - settings.textPadding, textLocationY - textHeight - settings.textPadding, textWidth + 2 * settings.textPadding, textHeight + 2 * settings.textPadding);
+	context.fillRect(textLocationX - textWidth/2 - settings.textPadding, textLocationY - textHeight - settings.textPadding, textWidth + 2 * settings.textPadding, textHeight * 2.5 + 2 * settings.textPadding);
 	
 	//Draw the text
 	context.textAlign = "center";
 	context.fillStyle = "rgb(0, 0, 0)"
 	context.font = settings.labelFont;
 	context.fillText( chartData[slice]['label'], textLocationX, textLocationY );
-
+	context.fillText( chartData[slice]['value'], textLocationX, textLocationY + textHeight * 1.5);
   }
