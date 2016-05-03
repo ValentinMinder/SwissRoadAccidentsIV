@@ -412,7 +412,8 @@ function isCurrentLevelEmpty(settings)
 	context.font = settings.labelFont;
 	var textWidth = context.measureText(chartData[slice]['label']).width;
 	var textHeight = 10; //MeasureText doesn't return the height ._.
-
+	
+	if(currentSliceRadius >= chartRadius/2.0){
 	// Draw the line attached to the label
 	context.beginPath();
     context.moveTo( centreX + Math.cos(midAngle) * currentSliceRadius, centreY + Math.sin(midAngle) * currentSliceRadius );
@@ -426,8 +427,9 @@ function isCurrentLevelEmpty(settings)
 	
 	//Draw the text
 	context.textAlign = "center";
-	context.fillStyle = "rgb(0, 0, 0)"
+	context.fillStyle = "rgb(0, 0, 0)";
 	context.font = settings.labelFont;
 	context.fillText( chartData[slice]['label'], textLocationX, textLocationY );
 	context.fillText( chartData[slice]['value'], textLocationX, textLocationY + textHeight * 1.5);
+	}
   }
