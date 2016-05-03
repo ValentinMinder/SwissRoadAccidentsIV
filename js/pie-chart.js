@@ -35,6 +35,7 @@
 	   hierarchy = [];
 	   hierarchyArray = ["region","cantons", ""];
 	   currentYear = 1997;
+	   dataLoaded = false;
 	   
 	   window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -61,6 +62,7 @@
 			statsData = data;
 			
 			updateChart(settings);
+			dataLoaded = true;
 			requestAnimationFrame(function(timestamp) {
 						animationTime = 0;
 						lastTime = new Date().getTime();
@@ -72,11 +74,12 @@
 
 		var that = this;
 		$(document).on("year-change", function(e, year) {
-			
-			console.log(year);
-			currentYear = year;
-			//TODO animation
-			updateChart(settings); 
+			if(dataLoaded)
+			{
+				currentYear = year;
+				//TODO animation
+				updateChart(settings); 
+			}
 		});
     };
 }( jQuery ));
@@ -100,7 +103,6 @@ function updateChart(settings) {
 	
 	//Find the current root for the data
 	var root = getCurrentRoot();
-	console.log(root);
 	if(depthLevel < settings.maxDepthLevel)
 		fillChart(root);
 	else
@@ -230,8 +232,6 @@ function isCurrentLevelEmpty(settings)
 		  for ( var slice in chartData ) {
 			if ( clickAngle >= chartData[slice]['startAngle'] && clickAngle <= chartData[slice]['endAngle'] ) {
 			  
-			  console.log(chartData[slice]['key']);
-			  
 			  if(depthLevel < settings.maxDepthLevel)
 			  {
 					depthLevel++;
@@ -271,8 +271,6 @@ function isCurrentLevelEmpty(settings)
 	  if(min <= max)
 	  {
 		var x = timeRatio * max + min * (1 - timeRatio);
-		//console.log(x);
-		//console.log(Math.sin(x));
 		return Math.sin(x);
 	  }
 	  return NaN;
