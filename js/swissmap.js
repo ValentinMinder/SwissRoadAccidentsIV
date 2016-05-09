@@ -4,6 +4,7 @@
 
     var jsonData;
     var max_canton_victims = -1
+    var year;
 
     var map = L.map('swissmap', {
             maxZoom: 10,
@@ -17,12 +18,15 @@
 
     map.setView([46.77, 8.2], 7.5); // center of Switzerland
 
+    $(document).on("year-change", function(e, y) {
+        year = "_" + y; // add prefix for json data
 
-    $.getJSON("data/data.json").done(function(data) {
-        jsonData = data;
-        max_canton_victims = jsonData.stats["max_canton_dead_victims"]
+        $.getJSON("data/data.json").done(function(data) {
+            jsonData = data;
+            max_canton_victims = jsonData.stats["max_canton_dead_victims"]
 
-        $.getJSON('data/ch-cantons.json').done(addTopoData);
+            $.getJSON('data/ch-cantons.json').done(addTopoData);
+        });
     });
 
     function getCantonData(abbr, year) {
@@ -39,6 +43,7 @@
     }
 
     function addTopoData(topoData) {
+        topoLayer.clearLayers();
         topoLayer.addData(topoData);
         topoLayer.addTo(map);
         topoLayer.eachLayer(handleLayer);
@@ -46,7 +51,7 @@
 
     function handleLayer(layer) {
         var canton = layer.toGeoJSON().properties.abbr
-        var cantonData = getCantonData(canton, "_1993");
+        var cantonData = getCantonData(canton, year);
         var cantonColor = cantonData["dead"] / max_canton_victims;
         var fillColor = colorScale(cantonColor).hex();
 
@@ -60,7 +65,7 @@
         layer.on({
             // mouseover: enterLayer,
             click: clickLayer
-            // mouseout: leaveLayer
+                // mouseout: leaveLayer
         });
     }
 
@@ -86,7 +91,7 @@
 
     function clickLayer() {
         var clickedCanton = this.feature.properties.abbr;
-        var cantonStats = getCantonData(clickedCanton, "_1994");
+        var cantonStats = getCantonData(clickedCanton, year);
         var msg = clickedCanton + ": " + JSON.stringify(cantonStats);
         // that.bindPopup("<b>" + msg + "</b>")
         $countryName.text(msg).show();
