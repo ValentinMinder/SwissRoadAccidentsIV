@@ -13,6 +13,11 @@ def safe_int(s):
 
 # read file to write abbreviation instead of canton name
 with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file:
+    # globals stats
+    max_canton_dead_victims = -1
+    max_canton_seriously_victims = -1
+    max_canton_lightly_victims = -1
+
     json_canton_abbr = json.load(cantons_abbr_file)
 
     def get_canton_abbr(canton_name):
@@ -20,6 +25,16 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
             if abbr_value["fr"] == canton_name:
                 return abbr_key
         return "INVALID_CANTON_NAME (%s)" % canton_name
+
+
+    def update_global_stats(deads, seriously_inj, lightly_inj):
+        global max_canton_dead_victims
+        global max_canton_seriously_victims
+        global max_canton_lightly_victims
+
+        max_canton_dead_victims = max(max_canton_dead_victims, deads)
+        max_canton_seriously_victims = max(max_canton_seriously_victims, seriously_inj)
+        max_canton_lightly_victims = max(max_canton_lightly_victims, lightly_inj)
 
     with open('../data.csv', newline='', encoding="utf-8") as csvfile:
         # json labels
@@ -47,7 +62,7 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
 
             if first:
                 line_year = deepcopy(line)
-            print("total year: %s -> %s" % (line_year[0], line_year[1]))
+            # print("total year: %s -> %s" % (line_year[0], line_year[1]))
 
             # save data to json_data
             j_year_total = int(line_year[1])
@@ -73,7 +88,7 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
             while line[0] != "Total":
                 # retrieve region until meet "Total".
                 # At the end of the file break the loop to end it correctly
-                print(" "*3 + "region: " + line[0])
+                # print(" "*3 + "region: " + line[0])
 
                 region_name = line[0]
                 json_data["year"][year_label][region_label][region_name] = dict()
@@ -107,11 +122,11 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
 
 
                 while line[0] != "":
-                    print(" "*6 +"--Canton")
+                    # print(" "*6 +"--Canton")
                     json_data["year"][year_label][region_label][region_name][json_canton_label] = dict()
 
                     while line[0] != "":
-                        print(" "*9 + "canton: " + line[0] + ": " + line[1])
+                        # print(" "*9 + "canton: " + line[0] + ": " + line[1])
 
                         # retrieve canton until meet empty line --> ,,,,,
 
@@ -123,6 +138,8 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
                         j_canton_dead = safe_int(line[2])
                         j_canton_seriously_inj = safe_int(line[4])
                         j_canton_lightly_inj = safe_int(line[5])
+
+                        update_global_stats(j_canton_dead, j_canton_seriously_inj, j_canton_lightly_inj)
 
                         json_data["year"][year_label][region_label][region_name][json_canton_label][canton_abbr] = dict()
                         json_data["year"][year_label][region_label][region_name][json_canton_label][canton_abbr]["total"] = j_canton_total
@@ -136,15 +153,23 @@ with open('../helpers/cantons-name.json', encoding="utf-8") as cantons_abbr_file
                         except StopIteration:
                             pass
 
-                    print(" "*6 +"--end Canton")
+                    # print(" "*6 +"--end Canton")
 
-                print(" "*3 + "end region")
+                # print(" "*3 + "end region")
                 line = next(reader)
 
             line_year = deepcopy(line)
 
-            print("[end year]")
+            # print("[end year]")
             year -= 1
+
+
+        # write global stats in json
+        print("[stats] dead: %s, seriously %s, lightly %s" % (max_canton_dead_victims, max_canton_seriously_victims, max_canton_lightly_victims))
+        json_data["stats"] = dict()
+        json_data["stats"]["max_canton_dead_victims"] = max_canton_dead_victims
+        json_data["stats"]["max_canton_seriously_victims"] = max_canton_seriously_victims
+        json_data["stats"]["max_canton_lightly_victims"] = max_canton_lightly_victims
 
         # dump json
         with open('../data.json', 'w', encoding="utf-8") as fp:
