@@ -3,6 +3,7 @@
     'use strict'
 
     var jsonData;
+    var max_canton_victims = -1
 
     var map = L.map('swissmap', {
             maxZoom: 10,
@@ -15,13 +16,27 @@
         .domain([0, 1]);
 
     map.setView([46.77, 8.2], 7.5); // center of Switzerland
-    $.getJSON('data/ch-cantons.json').done(addTopoData);
 
 
-    $.getJSON("data/data.json", function(data) {
+    $.getJSON("data/data.json").done(function(data) {
         jsonData = data;
+        max_canton_victims = jsonData.stats["max_canton_dead_victims"]
+
+        $.getJSON('data/ch-cantons.json').done(addTopoData);
     });
 
+    function getCantonData(abbr, year) {
+        var toReturn;
+        $.each(jsonData.year[year].regions, function(i, region) {
+            $.each(region.cantons, function(cantonName, cantonStats) {
+                if (cantonName == abbr) {
+                    toReturn = cantonStats;
+                    return false;
+                }
+            });
+        });
+        return toReturn;
+    }
 
     function addTopoData(topoData) {
         topoLayer.addData(topoData);
@@ -30,8 +45,10 @@
     }
 
     function handleLayer(layer) {
-        var randomValue = Math.random(),
-            fillColor = colorScale(randomValue).hex();
+        var canton = layer.toGeoJSON().properties.abbr
+        var cantonData = getCantonData(canton, "_1993");
+        var cantonColor = cantonData["dead"] / max_canton_victims;
+        var fillColor = colorScale(cantonColor).hex();
 
         layer.setStyle({
             fillColor: fillColor,
@@ -43,7 +60,7 @@
         layer.on({
             // mouseover: enterLayer,
             click: clickLayer
-                // mouseout: leaveLayer
+            // mouseout: leaveLayer
         });
     }
 
@@ -69,22 +86,9 @@
 
     function clickLayer() {
         var clickedCanton = this.feature.properties.abbr;
-        console.log("clic: " + clickedCanton);
-
-        console.log(this.feature.properties);
-        console.log(jsonData.year._1994);
-        //console.log(jsonData["1994"].dead);
-
-        $.each(jsonData.year._1994.regions, function(i, region) {
-            $.each(region.cantons, function(cantonName, cantonStats) {
-                console.log("count: " + Object.keys(region).length);
-                console.log(cantonName + " " + JSON.stringify(cantonStats));
-
-                if (cantonName == clickedCanton) {
-                    $countryName.text(cantonName + ": " + JSON.stringify(cantonStats)).show();
-                }
-            });
-
-        });
+        var cantonStats = getCantonData(clickedCanton, "_1994");
+        var msg = clickedCanton + ": " + JSON.stringify(cantonStats);
+        // that.bindPopup("<b>" + msg + "</b>")
+        $countryName.text(msg).show();
     }
 }());
