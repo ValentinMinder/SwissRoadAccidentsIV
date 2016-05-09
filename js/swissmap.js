@@ -11,7 +11,6 @@
             minZoom: 3
         }),
         topoLayer = new L.TopoJSON(),
-        $countryName = $('.country-name'),
         colorScale = chroma
         .scale(['#E8F6FA', '#20C0F5'])
         .domain([0, 1]);
@@ -71,7 +70,6 @@
 
     function enterLayer() {
         var countryName = this.feature.properties.name;
-        $countryName.text(countryName).show();
 
         this.bringToFront();
         this.setStyle({
@@ -81,7 +79,6 @@
     }
 
     function leaveLayer() {
-        $countryName.hide();
         this.bringToBack();
         this.setStyle({
             weight: 1,
@@ -93,7 +90,8 @@
         var clickedCanton = this.feature.properties.abbr;
         var cantonStats = getCantonData(clickedCanton, year);
         var msg = clickedCanton + ": " + JSON.stringify(cantonStats);
-        // that.bindPopup("<b>" + msg + "</b>")
-        $countryName.text(msg).show();
+        this.bindPopup("<div>" + msg + "</div>", {
+            maxWidth: "none"
+        });
     }
 }());
