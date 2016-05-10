@@ -40,3 +40,16 @@ footer {
     font-size: .85em;
     display: none;
 }
+.popup-body {
+    width: 180px;
+}
+.popup-body ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+}
+.popup-flag-title {
+    padding: 10px;
+    font-size: 140%;
+}

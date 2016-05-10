@@ -89,9 +89,27 @@
     function clickLayer() {
         var clickedCanton = this.feature.properties.abbr;
         var cantonStats = getCantonData(clickedCanton, year);
-        var msg = clickedCanton + ": " + JSON.stringify(cantonStats);
-        this.bindPopup("<div>" + msg + "</div>", {
+        this.bindPopup(getPopupContent(clickedCanton, cantonStats), {
             maxWidth: "none"
         });
+    }
+
+    function getPopupContent(abbr, cantonStats) {
+        return `
+            <div class="row popup-body">
+                <div class="col-xs-12">
+                    <img src="img/flags/${abbr}.svg" height="50" />
+                    <span class="popup-flag-title">${abbr}</span>
+
+                </div>
+                <div class="col-sm-12">
+                    <ul>
+                        <li>Total : ${cantonStats["total"]}</li>
+                        <li>Morts : ${cantonStats["dead"]}</li>
+                        <li>Sévèrement blessés : ${cantonStats["seriously_injured"]}</li>
+                        <li>Légèrement blessés : ${cantonStats["lightly_injured"]}</li>
+                    </ul>
+                </div>
+            </div>`;
     }
 }());
