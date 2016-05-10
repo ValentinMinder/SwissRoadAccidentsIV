@@ -177,6 +177,16 @@ function isCurrentLevelEmpty(settings)
 	return Object.keys(root).length < 2;
 }
 
+// Get the mouse cursor position, relative to the canvas
+function getMousePos(canvas, evt)
+{
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
+}
+
 
 /**
    * Process mouse clicks in the chart area.
@@ -189,19 +199,23 @@ function isCurrentLevelEmpty(settings)
 
   function handleChartClick ( clickEvent ) {
 	  
+	console.log("click");
 	// If an animation is running, we ignore any click event
 	if(!isAnimationRunning)
 	{
 		var settings = clickEvent.data.settings;
 
-		// Get the mouse cursor position at the time of the click, relative to the canvas
-		var mouseX = clickEvent.pageX - this.offsetLeft;
-		var mouseY = clickEvent.pageY - this.offsetTop;
+		// Get the mouse cursor position at the time of the click, relative to the canvas		
+		var mousePos = getMousePos(canvas, clickEvent);
 
 		// Was the click inside the pie chart?
-		var xFromCentre = mouseX - centreX;
-		var yFromCentre = mouseY - centreY;
+		var xFromCentre = mousePos.x - centreX;
+		var yFromCentre = mousePos.y - centreY;
 		var distanceFromCentre = Math.sqrt( Math.pow( Math.abs( xFromCentre ), 2 ) + Math.pow( Math.abs( yFromCentre ), 2 ) );
+		
+		console.log("centre : " + centreX + ", " + centreY);
+		console.log("mouse : " + mousePos.x + ", " + mousePos.y);
+		console.log("distanceFromCentre : " + distanceFromCentre);
 		
 		if(distanceFromCentre <= settings.emptyRadius)
 		{
@@ -432,4 +446,4 @@ function isCurrentLevelEmpty(settings)
 	context.fillText( chartData[slice]['label'], textLocationX, textLocationY );
 	context.fillText( chartData[slice]['value'], textLocationX, textLocationY + textHeight * 1.5);
 	}
-  }
+}
