@@ -9,7 +9,7 @@
         "years",
     ];
     var datas = {};
-    var arrays = {}
+    var arrays = {};
     $.getValues = function(name, callback) {
         if (datas[name]) {
             callback(datas[name], name);
@@ -32,7 +32,6 @@
                 data[k].year = parseInt(k);
                 ar.push(data[k])
             }
-            console.log("ar", ar);
             arrays[name] = ar;
             callback(ar, name)
         })

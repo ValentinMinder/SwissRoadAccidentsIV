@@ -24,11 +24,11 @@ $(function() {
 
     var line = d3.svg.line()
         .x(function (d) {
-            console.log("line x", d)
+            //console.log("line x", d)
             return x(d.year);
         })
         .y(function (d) {
-            console.log("line y", d)
+            //console.log("line y", d)
             return y(d.alcohol);
         });
 
@@ -55,13 +55,13 @@ $(function() {
         });
     }
     function dataDone() {
-        console.log("dataDone", datas, datas.alcohol);
+        //console.log("dataDone", datas, datas.alcohol);
         x.domain(d3.extent(datas.years, function (d) {
-            console.log("x", d);
+            //console.log("x", d);
             return d;
         }));
         y.domain(d3.extent(datas.alcohol, function (d) {
-            console.log("y", d, d.alcohol);
+            //console.log("y", d, d.alcohol);
             return d.alcohol;
         }));
 
