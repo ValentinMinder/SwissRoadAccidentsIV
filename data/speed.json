@@ -1,284 +1,242 @@
 {
- "1970": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "unlimited",
-  "out_town": "unlimited"
- },
- "1971": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "unlimited",
-  "out_town": "unlimited"
- },
- "1972": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "unlimited",
-  "out_town": "unlimited"
- },
- "1973": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "unlimited",
-  "out_town": "unlimited"
- },
- "1974": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "unlimited",
-  "out_town": "unlimited"
- },
  "1975": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1976": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1977": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1978": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1979": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1980": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1981": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1982": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1983": {
-  "small_highway": "unlimited",
-  "highway": "unlimited",
   "in_town": "unlimited",
-  "out_town": "unlimited"
+  "small_highway": "unlimited",
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1984": {
+  "in_town": 50,
   "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "50",
-  "out_town": "unlimited"
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1985": {
+  "in_town": 50,
   "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "50",
-  "out_town": "unlimited"
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1986": {
+  "in_town": 50,
   "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "50",
-  "out_town": "unlimited"
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1987": {
+  "in_town": 50,
   "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "50",
-  "out_town": "unlimited"
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1988": {
+  "in_town": 50,
   "small_highway": "unlimited",
-  "highway": "unlimited",
-  "in_town": "50",
-  "out_town": "unlimited"
+  "out_town": "unlimited",
+  "highway": "unlimited"
  },
  "1989": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1990": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1991": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1992": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1993": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1994": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1995": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1996": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1997": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1998": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "1999": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2000": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2001": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2002": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2003": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2004": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2005": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2006": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2007": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2008": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2009": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2010": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2011": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2012": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2013": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  },
  "2014": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
- },
- "2015": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
- },
- "2016": {
-  "small_highway": "100",
-  "highway": "120",
-  "in_town": "50",
-  "out_town": "80"
+  "in_town": 50,
+  "small_highway": 100,
+  "out_town": 80,
+  "highway": 120
  }
 }

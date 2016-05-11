@@ -2,11 +2,12 @@
   "name": "SwissRoadAccidentsIV",
   "homepage": "https://github.com/krypty/SwissRoadAccidentsIV",
   "authors": [
-    "Gary Marigliano <gmarigliano93@gmail.com>"
+    "Gary Marigliano <gmarigliano93@gmail.com>",
+    "Fa18Swiss <fa18swiss@users.noreply.github.com>"
   ],
   "description": "",
   "main": "",
-  "license": "MIT",
+  "license": "GNU v3",
   "private": true,
   "ignore": [
     "**/.*",
@@ -19,6 +20,7 @@
     "bootstrap": "^3.3.6",
     "leaflet": "^0.7.7",
     "chroma-js": "^1.1.1",
-    "topojson": "^1.6.24"
+    "topojson": "^1.6.24",
+    "d3": "^3.5.16"
   }
 }

@@ -4,9 +4,7 @@
             // These are the defaults.
             from: 1975,
             to: 2015
-        }, options );
-        console.log("a", settings);
-        console.log("b", settings.to);
+        }, options )
         var input = $('<input type="range" value="'+(settings.to + settings.from)/2+'" min="'+settings.from+'" max="'+settings.to+'"class="form-control"/>');
         this.html(input);
         input.change(function() {

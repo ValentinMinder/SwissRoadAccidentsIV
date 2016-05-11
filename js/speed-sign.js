@@ -15,7 +15,7 @@
         }, options );
         var data = null;
         var year = null;
-        $.getJSON("data/speed.json", function(d) {
+        $.getValues("speed", function(d) {
             data = d;
             changeImages();
         });

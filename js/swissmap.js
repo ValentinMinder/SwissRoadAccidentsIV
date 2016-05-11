@@ -20,11 +20,11 @@
     $(document).on("year-change", function(e, y) {
         year = "_" + y; // add prefix for json data
 
-        $.getJSON("data/data.json").done(function(data) {
+        $.getValues("data").done(function(data) {
             jsonData = data;
-            max_canton_victims = jsonData.stats["max_canton_dead_victims"]
+            max_canton_victims = jsonData.stats["max_canton_dead_victims"];
 
-            $.getJSON('data/ch-cantons.json').done(addTopoData);
+            $.getValues('ch-cantons', addTopoData);
         });
     });
 

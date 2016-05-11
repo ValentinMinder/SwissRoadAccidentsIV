@@ -57,7 +57,7 @@
 		// Grab the data from the table,
 		// and assign click handlers to the table data cells
 		
-		$.getJSON("data/data.json", function(data) {
+		$.getValues("data", function(data) {
 
 			statsData = data;
 			

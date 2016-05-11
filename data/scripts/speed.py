@@ -4,28 +4,30 @@ from collections import OrderedDict
 
 def in_town(year):
     if year > 1983:
-        return "50"
+        return 50
     return "unlimited"
 
 def out_town(year):
     if year > 1988:
-        return "80"
+        return 80
     return "unlimited"
 
 def small_highway(year):
     if year > 1988:
-        return "100"
+        return 100
     return "unlimited"
 
 def highway(year):
     if year > 1988:
-        return "120"
+        return 120
     return "unlimited"
 
 
 data = OrderedDict()
 
-for year in range(1970, 2016+1):
+from years import year_from, year_to
+
+for year in range(year_from, year_to+1):
     data[year] = {
         "in_town": in_town(year),
         "out_town": out_town(year),

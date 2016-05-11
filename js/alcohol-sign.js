@@ -9,7 +9,7 @@
         }, options );
         var data = null;
         var year = null;
-        $.getJSON("data/alcohol.json", function(d) {
+        $.getValues("alcohol", function(d) {
             data = d;
             changeImages();
         });

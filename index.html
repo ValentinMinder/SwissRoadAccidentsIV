@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8">
     <title>Hello World</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" type="text/css" href="css/chart.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/chart.css">
+    <link rel="stylesheet" href="css/history.css">
+
 </head>
 
 <body>
@@ -50,10 +52,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12" id="history">
 
-
-
-
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -63,17 +66,21 @@
             </div>
             <div class="col-sm-6">
                 <div class="pull-right">
-                    <img src="img/footer/logo-hesso.png" alt="Logo HES-SO" />
+                    <img src="img/footer/logo-hesso.png" alt="Logo HES-SO"/>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="bower_components/d3/d3.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/data-manager.js"></script>
     <script src="js/range-year.js"></script>
     <script src="js/speed-sign.js"></script>
     <script src="js/alcohol-sign.js"></script>
     <script src="js/pie-chart.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/swissmap.js"></script>
     <script src="js/application.js"></script>
 
     <script src="bower_components/chroma-js/chroma.min.js"></script>
@@ -81,7 +88,5 @@
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
 
     <script src="js/topojson-converter.js"></script>
-    <script src="js/swissmap.js"></script>
 </body>
-
 </html>

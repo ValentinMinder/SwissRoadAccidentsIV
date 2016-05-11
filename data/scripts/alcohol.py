@@ -4,12 +4,14 @@ from collections import OrderedDict
 
 def alcohol(year):
     if year > 2005:
-        return "0.5"
-    return "0.8"
+        return 0.5
+    return 0.8
 
 data = OrderedDict()
 
-for year in range(1970, 2016+1):
+from years import year_from, year_to
+
+for year in range(year_from, year_to+1):
     data[year] = {
         "alcohol": alcohol(year),
     }

@@ -7,3 +7,5 @@ bower_components
 .bower-tmp
 
 /.idea
+
+*.pyc
