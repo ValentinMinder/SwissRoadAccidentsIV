@@ -13,6 +13,11 @@
         "seriously_injured": "#FF0000",
         "lightly_injured": "#FFB300"
     };
+    var template = null;
+    $.get("templates/swissmap-popup.html", function (data) {
+        template = data;
+        Mustache.parse(template)
+    });
 
     var map = L.map('swissmap', {
             maxZoom: 10,
@@ -123,22 +128,10 @@
     }
 
     function getPopupContent(abbr, cantonStats) {
-        return `
-            <div class="row popup-body">
-                <div class="col-xs-12">
-                    <img src="img/flags/${abbr}.svg" height="50" />
-                    <span class="popup-flag-title">${abbr}</span>
-
-                </div>
-                <div class="col-sm-12">
-                    <ul>
-                        <li>Total : ${cantonStats["total"]}</li>
-                        <li>Morts : ${cantonStats["dead"]}</li>
-                        <li>Sévèrement blessés : ${cantonStats["seriously_injured"]}</li>
-                        <li>Légèrement blessés : ${cantonStats["lightly_injured"]}</li>
-                    </ul>
-                </div>
-            </div>`;
+        return Mustache.render(template, {
+            "abbr" : abbr,
+            "cantonStats": cantonStats,
+        });
     }
 
     $("input[name=map_layer]:radio").on('change', function() {
