@@ -1,0 +1,29 @@
+#swissmap {
+    width: 100%;
+    height: 420px;
+    background: lightgrey;
+}
+.country-name {
+    position: absolute;
+    top: 2em;
+    right: 1em;
+    z-index: 6;
+    background: rgba(0, 0, 0, .75);
+    color: white;
+    padding: .5em .75em;
+    font-size: .85em;
+    display: none;
+}
+.popup-body {
+    width: 180px;
+}
+.popup-body ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+}
+.popup-flag-title {
+    padding: 10px;
+    font-size: 140%;
+}
