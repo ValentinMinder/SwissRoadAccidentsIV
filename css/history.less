@@ -1,18 +1,23 @@
-#history .axis path,
-#history .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-}
+#history {
+  .axis {
+    path, line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+  }
 
-
-#history .line_alcohol {
+  .line {
     fill: none;
+    stroke-width: 1.5px;
+  }
+
+  .line_alcohol {
+    .line;
     stroke: steelblue;
-    stroke-width: 1.5px;
-}
-#history .line_deads {
-    fill: none;
+  }
+  .line_deads {
+    .line;
     stroke: red;
-    stroke-width: 1.5px;
+  }
 }
