@@ -50,9 +50,48 @@
                     max_canton_victims = jsonData.stats["max_canton_lightly_victims"];
                     break;
             }
-            console.log("max canton victims: " + max_canton_victims);
+
+            updateLegend();
+
             $.getValues('ch-cantons', addTopoData);
         });
+    }
+
+    function updateLegend() {
+        var max_hue = victims_colors[victims_type],
+            colorScale = chroma
+            .scale(['#E8F6FA', max_hue])
+            .domain([0, 1]);
+
+        var legend = L.control({
+            position: 'bottomright'
+        });
+
+        legend.onAdd = function(map) {
+            // remove legend if previously created
+            if ($("#legend") != undefined) {
+                $("#legend").remove();
+            }
+            var div = document.createElement("div");
+            div.id = "legend";
+            div.className += "legend info";
+            console.log(div);
+            var grades = new Array();
+            var length = 10;
+            for (var i = 0; i < length; i++) {
+                grades[i] = Math.round(i * 0.1 * max_canton_victims);
+            }
+
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + colorScale((grades[i] + 1) / max_canton_victims) + '"></i> ' +
+                    (grades[i] + 1) + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+        legend.addTo(map);
     }
 
     function getCantonData(abbr, year) {
@@ -69,6 +108,7 @@
     }
 
     function addTopoData(topoData) {
+        map.closePopup();
         topoLayer.clearLayers();
         topoLayer.addData(topoData);
         topoLayer.addTo(map);
@@ -84,7 +124,6 @@
             colorScale = chroma
             .scale(['#E8F6FA', max_hue])
             .domain([0, 1]);
-
         var fillColor = colorScale(cantonColor).hex();
 
         layer.setStyle({
