@@ -9,16 +9,25 @@
         "vehicles",
     ];
     var datas = {};
+    var waitings = {};
     var arrays = {};
     $.getValues = function(name, callback) {
         if (datas[name]) {
             callback(datas[name], name);
             return;
         }
-        if (files.indexOf(name) < 0) throw "Invalid file name " + name;        
+        if (files.indexOf(name) < 0) throw "Invalid file name " + name;
+        if (name in waitings) {
+            waitings[name].push(callback);
+            return;
+        }
+        waitings[name] = [callback];
         $.getJSON("data/" + name + ".json", function(d) {
             datas[name] = d;
-            callback(d, name);
+            for (i in waitings[name]) {
+                waitings[name][i](d, name);
+            }
+            waitings[name] = undefined;
         });
     };
     $.getArray = function(name, callback) {

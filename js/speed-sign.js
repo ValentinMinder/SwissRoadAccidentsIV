@@ -36,7 +36,6 @@
             if (!data) return;
             if (!year) return;
             var d = data[year+""];
-            console.log("d");
             $(settings.in_town_speed).find("img").attr("src", "/img/speed/" + d.in_town + ".svg");
             $(settings.out_town_speed).find("img").attr("src", "/img/speed/" + d.out_town + ".svg");
             $(settings.small_highway_speed).find("img").attr("src", "/img/speed/" + d.small_highway + ".svg");

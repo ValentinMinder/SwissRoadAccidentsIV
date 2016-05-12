@@ -86,9 +86,6 @@ $(function() {
             */
             data.push(data_line);
         }
-        console.log("my data history", data);
-
-        //console.log("dataDone", datas, datas.alcohol);
         x.domain([datas.settings.year_from, datas.settings.year_to]);
         y.domain([0, d3.max(data, function (d) {
             return d.deads;
