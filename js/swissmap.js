@@ -6,26 +6,49 @@
     var max_canton_victims = -1
     var year;
 
+    // victims type (dead, seriously or lightly injured) and layers colors
+    var victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
+    var victims_colors = {
+        "dead": "#000",
+        "seriously_injured": "#FF0000",
+        "lightly_injured": "#FFB300"
+    };
+
     var map = L.map('swissmap', {
             maxZoom: 10,
             minZoom: 3
         }),
-        topoLayer = new L.TopoJSON(),
-        colorScale = chroma
-        .scale(['#E8F6FA', '#20C0F5'])
-        .domain([0, 1]);
+        topoLayer = new L.TopoJSON();
 
     map.setView([46.77, 8.2], 7.5); // center of Switzerland
 
     $(document).on("year-change", function(e, y) {
         year = "_" + y; // add prefix for json data
 
+        updateMap();
+    });
+
+    function updateMap() {
         $.getValues("data", function(data) {
             jsonData = data;
-            max_canton_victims = jsonData.stats["max_canton_dead_victims"];
+
+            switch (victims_type) {
+                case "dead":
+                    max_canton_victims = jsonData.stats["max_canton_dead_victims"];
+                    break;
+
+                case "seriously_injured":
+                    max_canton_victims = jsonData.stats["max_canton_seriously_victims"];
+                    break;
+
+                case "lightly_injured":
+                    max_canton_victims = jsonData.stats["max_canton_lightly_victims"];
+                    break;
+            }
+            console.log("max canton victims: " + max_canton_victims);
             $.getValues('ch-cantons', addTopoData);
         });
-    });
+    }
 
     function getCantonData(abbr, year) {
         var toReturn;
@@ -50,7 +73,13 @@
     function handleLayer(layer) {
         var canton = layer.toGeoJSON().properties.abbr
         var cantonData = getCantonData(canton, year);
-        var cantonColor = cantonData["dead"] / max_canton_victims;
+        var cantonColor = cantonData[victims_type] / max_canton_victims;
+
+        var max_hue = victims_colors[victims_type],
+            colorScale = chroma
+            .scale(['#E8F6FA', max_hue])
+            .domain([0, 1]);
+
         var fillColor = colorScale(cantonColor).hex();
 
         layer.setStyle({
@@ -111,4 +140,10 @@
                 </div>
             </div>`;
     }
+
+    $("input[name=map_layer]:radio").on('change', function() {
+        victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
+        updateMap();
+    });
+
 }());

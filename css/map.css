@@ -1,7 +1,8 @@
 #swissmap {
     width: 100%;
     height: 550px;
-    background: lightgrey;
+    background: #fff;
+    float: left;
 }
 .country-name {
     position: absolute;
@@ -26,4 +27,13 @@
 .popup-flag-title {
     padding: 10px;
     font-size: 140%;
+}
+#swissmap-controls {
+    z-index: 5;
+    position: absolute;
+    top: 50px;
+    right: 25px;
+    width: 400px;
+    height: 100px;
+    padding: 5px;
 }
