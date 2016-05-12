@@ -5,8 +5,8 @@
         "data",
         "population",
         "speed",
+        "settings",
         "vehicles",
-        "years",
     ];
     var datas = {};
     var arrays = {};

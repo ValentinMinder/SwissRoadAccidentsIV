@@ -41,8 +41,7 @@ $(function() {
     var datasNames = [
         "alcohol",
         "speed",
-        "years",
-    ]
+    ];
     var datas = {};
     var got = 0;
     for(var i = 0 ; i < datasNames.length ; i++) {
@@ -56,9 +55,9 @@ $(function() {
     }
     function dataDone() {
         //console.log("dataDone", datas, datas.alcohol);
-        x.domain(d3.extent(datas.years, function (d) {
+        x.domain(d3.extent(datas.alcohol, function (d) {
             //console.log("x", d);
-            return d;
+            return d.year;
         }));
         y.domain(d3.extent(datas.alcohol, function (d) {
             //console.log("y", d, d.alcohol);
