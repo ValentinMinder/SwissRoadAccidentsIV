@@ -16,22 +16,27 @@ $(function() {
 
     var xAxis = d3.svg.axis()
         .scale(x)
+        .tickFormat(d3.format("f"))
         .orient("bottom");
 
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left");
 
-    var line = d3.svg.line()
+    var line_alcohol = d3.svg.line()
         .x(function (d) {
-            //console.log("line x", d)
             return x(d.year);
         })
         .y(function (d) {
-            //console.log("line y", d)
-            return y(d.alcohol);
+            return y(d.alcohol * 1000);
         });
-
+    var line_deads = d3.svg.line()
+        .x(function (d) {
+            return x(d.year);
+        })
+        .y(function (d) {
+            return y(d.deads);
+        });
     var svg = d3.select("#history").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -40,12 +45,16 @@ $(function() {
 
     var datasNames = [
         "alcohol",
+        "data",
+        "population",
+        "settings",
         "speed",
+        "vehicles",
     ];
     var datas = {};
     var got = 0;
     for(var i = 0 ; i < datasNames.length ; i++) {
-        $.getArray(datasNames[i], function(d, n) {
+        $.getValues(datasNames[i], function(d, n) {
             datas[n] = d;
             got++;
             if (got >= datasNames.length) {
@@ -54,20 +63,42 @@ $(function() {
         });
     }
     function dataDone() {
+        var data = [];
+        var years = datas.data.year;
+        for (var year = datas.settings.year_from ; year <= datas.settings.year_to ; year++) {
+            var yearStr = "" + year;
+            var data_line = {
+                year: parseInt(yearStr),
+                deads: years["_" + yearStr].dead,
+                alcohol: datas.alcohol[yearStr].alcohol,
+                populations: 0,
+                vehicles: 0,
+            };
+            if (yearStr in datas.population) {
+                data_line.populations = datas.population[yearStr].ALL;
+            }
+            if (yearStr in datas.vehicles) {
+                data_line.vehicles = datas.vehicles[yearStr].ALL;
+            }
+            /*
+             populations: datas.population[yearStr].ALL,
+             vehicles: datas.vehicles[yearStr].ALL,
+            */
+            data.push(data_line);
+        }
+        console.log("my data history", data);
+
         //console.log("dataDone", datas, datas.alcohol);
-        x.domain(d3.extent(datas.alcohol, function (d) {
-            //console.log("x", d);
-            return d.year;
-        }));
-        y.domain(d3.extent(datas.alcohol, function (d) {
-            //console.log("y", d, d.alcohol);
-            return d.alcohol;
-        }));
+        x.domain([datas.settings.year_from, datas.settings.year_to]);
+        y.domain([0, d3.max(data, function (d) {
+            return d.deads;
+        })]);
 
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
+            .call(xAxis)
+            ;
 
         svg.append("g")
             .attr("class", "y axis")
@@ -80,8 +111,13 @@ $(function() {
             .text("Price ($)");
 
         svg.append("path")
-            .datum(datas.alcohol)
-            .attr("class", "line")
-            .attr("d", line);
+            .datum(data)
+            .attr("class", "line_alcohol")
+            .attr("d", line_alcohol);
+
+        svg.append("path")
+            .datum(data)
+            .attr("class", "line_deads")
+            .attr("d", line_deads);
     };
 });

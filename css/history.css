@@ -6,8 +6,13 @@
 }
 
 
-#history .line {
+#history .line_alcohol {
     fill: none;
     stroke: steelblue;
+    stroke-width: 1.5px;
+}
+#history .line_deads {
+    fill: none;
+    stroke: red;
     stroke-width: 1.5px;
 }
