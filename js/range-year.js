@@ -1,4 +1,4 @@
-(function( $ ) {
+(function($) {
     $.fn.rangeYear = function() {
         var that = this;
         var template = null;
@@ -12,17 +12,31 @@
             createRange(that, data, template);
         })
     };
+
     function createRange(that, data, template) {
         if (!data) return;
         if (!template) return;
         var input = $(Mustache.render(template, data));
-        input.val((data.year_from + data.year_to) / 2);
+        var year_now = Math.round((data.year_from + data.year_to) / 2);
         that.html(input);
-        input.change(function() {
-            $(document).trigger("year-change",  $(this).val());
+        var sliderInput = that.find("input");
+        sliderInput.slider({
+            tooltip_position: 'bottom',
+            tooltip: 'always'
         });
+        sliderInput.slider('setValue', year_now);
+
+        var updateValue = function() {
+            var value = sliderInput.slider('getValue');
+            $(document).trigger("year-change", value);
+        };
+
+        sliderInput.slider()
+            .on('change', updateValue);
+
+        // trigger manually the change event the first time
         setTimeout(function() {
-            input.change();
+            updateValue();
         }, 100);
     }
-}( jQuery ));
+}(jQuery));
