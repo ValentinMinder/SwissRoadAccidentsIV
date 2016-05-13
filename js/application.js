@@ -15,7 +15,7 @@ $(document).ready(function() {
         alcohol: "#signs div:nth-child(10)",
     });
     $(document).on("year-change", function(e, y) {
-        $("#year").text(y);
+        $("#year-title").text(y);
     });
 	$("#pichart").pieChart();
 });

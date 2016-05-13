@@ -16,14 +16,15 @@
     function createRange(that, data, template) {
         if (!data) return;
         if (!template) return;
-        var input = $(Mustache.render(template, data));
+
         var year_now = Math.round((data.year_from + data.year_to) / 2);
+        data.year_now = year_now;
+
+        var input = $(Mustache.render(template, data));
+
         that.html(input);
         var sliderInput = that.find("input");
-        sliderInput.slider({
-            tooltip_position: 'bottom',
-            tooltip: 'always'
-        });
+        sliderInput.slider();
         sliderInput.slider('setValue', year_now);
 
         var updateValue = function() {
