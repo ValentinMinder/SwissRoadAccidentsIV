@@ -21,3 +21,7 @@ gulp.task("min/css", ["less"], function () {
         .pipe(cleanCSS())
         .pipe(gulp.dest("./css/"));
 });
+
+gulp.task('watch', function() {
+    gulp.watch('./css/*.less', ['less']); 
+});
