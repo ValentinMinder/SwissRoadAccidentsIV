@@ -1,0 +1,5 @@
+{
+  "dead": { "de":"Tot", "fr":"Morts", "it":"Morto", "en":"Dead"},
+  "seriously_injured": { "de":"Schwerverletzte", "fr":"Blessés graves", "it":"Lesioni gravi", "en":"Seriously injured"},
+  "lightly_injured": { "de":"Leichtverletzte", "fr":"Blessés légers", "it":"Lievi ferite", "en":"Lightly injured"}
+}

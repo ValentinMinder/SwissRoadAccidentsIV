@@ -47,13 +47,13 @@
 		if ( typeof canvas.getContext === 'undefined' ) return;
 
 		// Initialise some properties of the canvas and chart
-		canvasWidth = canvas.width;
-		canvasHeight = canvas.height;
-		centreX = canvasWidth / 2;
-		centreY = canvasHeight / 2;
-		chartRadius = Math.min( canvasWidth, canvasHeight ) / 2 * ( settings.chartSizePercent / 100 );
-		emptyRadius = chartRadius * settings.emptyRadiusRatio;
+		centerChart(settings);
 		currentChartRadius = emptyRadius;
+		
+		//Load injury traduction
+		$.getJSON( "data/helpers/injury.json", function( data ) {
+			injuryData = data;
+		});
 		
 		$.getValues("data", function(data) {
 
@@ -68,23 +68,13 @@
 						expandAnimationStep(timestamp, settings);
 			});
 			$('#chart').click ({settings: settings}, handleChartClick );
+			
 		});
-		
-		var c = $('#chart');
-		var container = $(c).parent();
 
 		//Run function when browser resizes
 		$(window).resize( function() {
 			
-			c.attr('width', $(container).width() ); //max width
-			c.attr('height', $(container).height() ); //max height
-			
-			canvasWidth = canvas.width;
-			canvasHeight = canvas.height;
-			centreX = canvasWidth / 2;
-			centreY = canvasHeight / 2;
-			chartRadius = Math.min( canvasWidth, canvasHeight ) / 2 * ( settings.chartSizePercent / 100 );
-			emptyRadius = chartRadius * settings.emptyRadiusRatio;
+			centerChart(settings);
 			currentChartRadius = chartRadius + settings.sliceRadiusDelta * slicesCount;
 			
 			//redraw the chart
@@ -102,6 +92,22 @@
 		});
     };
 }( jQuery ));
+
+function centerChart(settings)
+{
+	var c = $('#chart');
+	var container = $(c).parent();
+			
+	c.attr('width', $(container).width() ); //max width
+	c.attr('height', $(container).height() ); //max height
+	
+	canvasWidth = canvas.width;
+	canvasHeight = canvas.height;
+	centreX = canvasWidth / 2;
+	centreY = canvasHeight / 2;
+	chartRadius = Math.min( canvasWidth, canvasHeight ) / 2 * ( settings.chartSizePercent / 100 );
+	emptyRadius = chartRadius * settings.emptyRadiusRatio;
+}
 
 function getCurrentRoot() {
 	
@@ -149,7 +155,7 @@ function fillChart(obj) {
 		currentRow++;
 		chartData[currentRow] = [];
 		chartData[currentRow]['key'] = key;
-		chartData[currentRow]['label'] = key; //TODO traduction
+		chartData[currentRow]['label'] = key;
 		chartData[currentRow]['value'] = dataValue.total;
 		totalValue += dataValue.total;
 		
@@ -175,7 +181,7 @@ function fillLastLevel(obj) {
 			currentRow++;
 			chartData[currentRow] = [];
 			chartData[currentRow]['key'] = key;
-			chartData[currentRow]['label'] = key; //TODO traduction
+			chartData[currentRow]['label'] = injuryData[key]["fr"]; //TODO language variable 
 			chartData[currentRow]['value'] = value;
 			
 			//Colors (HSL)
