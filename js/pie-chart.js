@@ -77,8 +77,8 @@
 			if(dataLoaded)
 			{
 				currentYear = year;
-				//TODO animation
-				updateChart(settings); 
+				updateChart(settings);
+				drawChart(settings); //TODO animation
 			}
 		});
     };
