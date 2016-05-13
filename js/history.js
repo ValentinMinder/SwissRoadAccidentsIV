@@ -104,7 +104,7 @@ $(function () {
             return y(d.deads / (d.populations * 0.0000005));
         }, "line");
         addLine(svg, data, xYear, function(d) {
-            return y(d.vehicles * 0.0001);
+            return y(d.deads / (d.vehicles * 0.0000005));
         }, "line");
     }
     $(window).resize(function() {
