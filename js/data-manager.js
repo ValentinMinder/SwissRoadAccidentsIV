@@ -24,7 +24,7 @@
         waitings[name] = [callback];
         $.getJSON("data/" + name + ".json", function(d) {
             datas[name] = d;
-            for (i in waitings[name]) {
+            for (var i in waitings[name]) {
                 waitings[name][i](d, name);
             }
             waitings[name] = undefined;
