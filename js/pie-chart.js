@@ -12,7 +12,7 @@
 			expandAnimDuration: 1000,					// The duration in ms of the expand animation
 			sliceRadiusDelta:20,
 			maxDepthLevel: 2,
-			emptyRadius: 60,
+			emptyRadiusRatio: 0.5,
 			middleTextFont: "20px 'Trebuchet MS', Verdana, sans-serif",
 			labelDistance: 52,
 			labelFont: "12px 'Trebuchet MS', Verdana, sans-serif",
@@ -25,7 +25,6 @@
 	   chartData = [];               // Chart data (labels, values, and angles)
 	   chartColours = [];            // Chart colours (pulled from the HTML table)
 	   totalValue = 0;                // Total of all the values in the chart
-	   currentChartRadius = settings.emptyRadius;
 	   slicesCount = 0;
 	   animationTime = 0;
 	   lastTime = new Date().getTime();
@@ -53,9 +52,8 @@
 		centreX = canvasWidth / 2;
 		centreY = canvasHeight / 2;
 		chartRadius = Math.min( canvasWidth, canvasHeight ) / 2 * ( settings.chartSizePercent / 100 );
-
-		// Grab the data from the table,
-		// and assign click handlers to the table data cells
+		emptyRadius = chartRadius * settings.emptyRadiusRatio;
+		currentChartRadius = emptyRadius;
 		
 		$.getValues("data", function(data) {
 
@@ -71,6 +69,27 @@
 			});
 			$('#chart').click ({settings: settings}, handleChartClick );
 		});
+		
+		var c = $('#chart');
+		var container = $(c).parent();
+
+		//Run function when browser resizes
+		$(window).resize( function() {
+			
+			c.attr('width', $(container).width() ); //max width
+			c.attr('height', $(container).height() ); //max height
+			
+			canvasWidth = canvas.width;
+			canvasHeight = canvas.height;
+			centreX = canvasWidth / 2;
+			centreY = canvasHeight / 2;
+			chartRadius = Math.min( canvasWidth, canvasHeight ) / 2 * ( settings.chartSizePercent / 100 );
+			emptyRadius = chartRadius * settings.emptyRadiusRatio;
+			currentChartRadius = chartRadius + settings.sliceRadiusDelta * slicesCount;
+			
+			//redraw the chart
+			drawChart(settings);
+		});
 
 		var that = this;
 		$(document).on("year-change", function(e, year) {
@@ -83,7 +102,6 @@
 		});
     };
 }( jQuery ));
-
 
 function getCurrentRoot() {
 	
@@ -217,7 +235,7 @@ function getMousePos(canvas, evt)
 		console.log("mouse : " + mousePos.x + ", " + mousePos.y);
 		console.log("distanceFromCentre : " + distanceFromCentre);
 		
-		if(distanceFromCentre <= settings.emptyRadius)
+		if(distanceFromCentre <= emptyRadius)
 		{
 			if(depthLevel > 0)
 			  {			  
@@ -362,7 +380,7 @@ function getMousePos(canvas, evt)
 	
 	//Draw Chart Center
 	context.beginPath();
-	context.arc(centreX, centreY, settings.emptyRadius, 0, 2 * Math.PI, false);
+	context.arc(centreX, centreY, emptyRadius, 0, 2 * Math.PI, false);
 	context.fillStyle = 'white';
 	context.fill();
 	
