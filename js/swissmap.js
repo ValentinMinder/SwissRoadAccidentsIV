@@ -14,14 +14,18 @@
         "lightly_injured": "#FFB300"
     };
     var template = null;
-    $.get("templates/swissmap-popup.html", function (data) {
+    $.get("templates/swissmap-popup.html", function(data) {
         template = data;
         Mustache.parse(template)
     });
 
     var map = L.map('swissmap', {
-            maxZoom: 10,
-            minZoom: 3
+            maxZoom: 9,
+            minZoom: 7,
+            maxBounds: [
+                [45.175325, 4.064941],
+                [48.232967, 12.524414]
+            ]
         }),
         topoLayer = new L.TopoJSON();
 
@@ -168,7 +172,7 @@
 
     function getPopupContent(abbr, cantonStats) {
         return Mustache.render(template, {
-            "abbr" : abbr,
+            "abbr": abbr,
             "cantonStats": cantonStats,
         });
     }
