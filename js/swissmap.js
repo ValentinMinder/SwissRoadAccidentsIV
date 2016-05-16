@@ -79,7 +79,6 @@
             var div = document.createElement("div");
             div.id = "legend";
             div.className += "legend info";
-            console.log(div);
             var grades = new Array();
             var length = 10;
             for (var i = 0; i < length; i++) {

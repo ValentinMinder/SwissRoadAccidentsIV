@@ -1,13 +1,4 @@
 <h2>Année - <span id="year-title">{{ year_now }}</span></h2>
-
-<div class="row">
-    <div class="col-xs-1">
-        <div class="year-label">{{ year_from }}</div>
-    </div>
-    <div class="col-xs-10">
-        <input data-slider-id='range-slider' type="range" data-slider-min="{{ year_from }}" data-slider-max="{{ year_to }}" data-slider-step="1" />
-    </div>
-    <div class="col-xs-1">
-        <div class="year-label">{{ year_to }}</div>
-    </div>
+<div class="col-xs-12">
+    <div id="range-year-slider"></div>
 </div>
