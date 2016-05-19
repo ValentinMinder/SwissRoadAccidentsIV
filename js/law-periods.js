@@ -28,8 +28,8 @@
             }
 
             // highlight current period
-            $("#law-periods div").removeClass("highlight-period");
-            $("#law-periods > div:eq(" + period + ")").addClass("highlight-period");
+            $("#law-periods > div").removeClass("unhighlight-period").addClass("highlight-period");
+            $("#law-periods > div:eq(" + period + ")").removeClass("highlight-period").addClass("unhighlight-period");
 
         });
     };
