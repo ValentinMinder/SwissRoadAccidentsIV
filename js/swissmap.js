@@ -8,24 +8,57 @@
     var year = null;
 
     // victims type (dead, seriously or lightly injured) and layers colors
-    var victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
+    var victims_type;
     var victims_colors = null;
     $.getValues("colors", function(data) {
         victims_colors = data;
         updateMap();
     });
+
     $.getValues("data", function(data) {
         jsonData = data;
         updateMap();
     });
+
     $.getValues("ch-cantons", function(data) {
         topoData = data;
         updateMap();
     });
-    var template = null;
+
+    var victims_type_names = Array();
+    // load injury traduction. TODO: use browser lang instead of hardcoding "fr"
+    $.getJSON("data/helpers/injury.json", function(data) {
+        victims_type_names["dead"] = data["dead"]["fr"];
+        victims_type_names["seriously_injured"] = data["seriously_injured"]["fr"];
+        victims_type_names["lightly_injured"] = data["lightly_injured"]["fr"];
+
+        buildMapControls();
+    });
+
+    function buildMapControls() {
+        var templateControls = null;
+        $.get("templates/swissmap-controls.html", function(data) {
+            templateControls = data;
+            Mustache.parse(data);
+
+            var input = Mustache.render(templateControls, {
+                "victims_type_names": victims_type_names
+            });
+
+            $("#swissmap-controls").html(input);
+
+            victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
+            $("input[name=map_layer]:radio").on('change', function() {
+                victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
+                updateMap();
+            });
+        });
+    }
+
+    var templatePopup = null;
     $.get("templates/swissmap-popup.html", function(data) {
-        template = data;
-        Mustache.parse(template)
+        templatePopup = data;
+        Mustache.parse(templatePopup)
     });
 
     var map = L.map('swissmap', {
@@ -46,6 +79,12 @@
     });
 
     function updateMap() {
+        console.log("json :" + jsonData);
+        console.log("topoData :" + topoData);
+        console.log("victims_colors :" + JSON.stringify(victims_colors));
+        console.log("year :" + year);
+        console.log("victims_type :" + victims_type);
+
         if (!jsonData) return;
         if (!topoData) return;
         if (!victims_colors) return;
@@ -66,7 +105,6 @@
 
         updateLegend();
         addTopoData();
-
     }
 
     function updateLegend() {
@@ -146,9 +184,7 @@
             opacity: .5
         });
         layer.on({
-            // mouseover: enterLayer,
             click: clickLayer
-                // mouseout: leaveLayer
         });
     }
 
@@ -179,15 +215,11 @@
     }
 
     function getPopupContent(abbr, cantonStats) {
-        return Mustache.render(template, {
+        return Mustache.render(templatePopup, {
             "abbr": abbr,
             "cantonStats": cantonStats,
+            "victims_type_names": victims_type_names
         });
     }
-
-    $("input[name=map_layer]:radio").on('change', function() {
-        victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
-        updateMap();
-    });
 
 }());
