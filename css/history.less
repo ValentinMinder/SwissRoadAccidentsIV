@@ -1,5 +1,5 @@
 @import "colors";
-#history {
+#history_container {
   .axis {
     path, line {
       fill: none;
@@ -28,9 +28,23 @@
   }
 }
 #history_controls_form {
+  span {
+    margin-left: 40px;
+  }
+}
+#history_controls_form1 {
   z-index: 5;
   position: absolute;
   top: 50px;
+  right: 25px;
+  width: 150px;
+  height: 100px;
+  padding: 5px;
+}
+#history_legend1 {
+  z-index: 5;
+  position: absolute;
+  bottom: 50px;
   right: 25px;
   width: 150px;
   height: 100px;

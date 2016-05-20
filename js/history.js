@@ -1,4 +1,6 @@
 $(function () {
+    'use strict';
+
     var MODE_NOMBRE = 1;
     var MODE_PER_POP = 2;
     var MODE_PER_VHC = 3;
@@ -24,14 +26,46 @@ $(function () {
             }
         });
     }
+    var template = null;
+    var trads = null;
     $.get("templates/history-form.html", function(t) {
-        $(dest).before($(Mustache.render(t, {})));
+        template = t;
+        drawLegend();
+    });
+    $.getValues("helpers/injury", function (d) {
+        trads = d;
+        drawLegend();
+    });
+    function drawLegend() {
+        if (!template) return;
+        if (!trads) return;
+        var d = {
+            legend_width: 40,
+            legend_height: 12,
+            legend_half_height: 6,
+            legends: [
+                {
+                    name: trads.dead.fr,
+                    class: "line_deads",
+                },
+                {
+                    name: trads.lightly_injured.fr,
+                    class: "line_lightly_injureds",
+                },
+                {
+                    name: trads.seriously_injured.fr,
+                    class: "line_seriously_injureds",
+                },
+            ]
+        }
+        $(dest).before($(Mustache.render(template, d)));
         $('input:radio[name="history_choice"]').change(function() {
             var radio = $('input:radio[name="history_choice"]:checked');
             mode = parseInt(radio.val());
             dataDone();
         })
-    });
+    };
+    
     function dataDone() {
         if (!dataGot) return;
         if (!data) {
@@ -47,7 +81,7 @@ $(function () {
                     seriously_injureds: yLocal.seriously_injured,
                     lightly_injureds: yLocal.lightly_injured,
                     populations: datas.population[yearStr].ALL,
-                    vehicles: vehicles = datas.vehicles[yearStr].ALL,
+                    vehicles: datas.vehicles[yearStr].ALL,
                 };
                 var pop = data_line.populations * 0.001;
                 var vhc = data_line.vehicles * 0.001;

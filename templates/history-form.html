@@ -1,11 +1,29 @@
-<form id="history_controls_form" class="pull-right">
-    <input id="history-total" type="radio" name="history_choice" value="1" checked="checked">
-    <label for="history-total">Total</label>
-    <br/>
-    <input id="history-by-pop" type="radio" name="history_choice" value="2">
-    <label for="history-by-pop">Par habitant</label>
-    <br/>
-    <input id="history-by-vhc" type="radio" name="history_choice" value="3">
-    <label for="history-by-vhc">Par véhicule</label>
-    <br/>
+<form id="history_controls_form">
+    <div class="pull-right">
+        <span>
+            <input id="history-total" type="radio" name="history_choice" value="1" checked="checked">
+            <label for="history-total">Total</label>
+        </span>
+        <span>
+            <input id="history-by-pop" type="radio" name="history_choice" value="2">
+            <label for="history-by-pop">Par habitant</label>
+        </span>
+        <span>
+            <input id="history-by-vhc" type="radio" name="history_choice" value="3">
+            <label for="history-by-vhc">Par véhicule</label>
+        </span>
+    </div>
+    <div class="clearfix"></div>
+    <div class="pull-right">
+        {{#legends}}
+        <span>
+            <svg height="{{ legend_height }}" width="{{ legend_width }}">
+                <g>
+                    <path class="{{ class }}" d="m 0,{{ legend_half_height }} {{ legend_width }},0"/>
+                </g>
+            </svg>
+            {{ name }}
+        </span>
+        {{/legends}}
+    </div>
 </form>

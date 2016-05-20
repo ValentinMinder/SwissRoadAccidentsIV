@@ -1,4 +1,6 @@
 (function( $ ) {
+    'use strict';
+
     var files = [
         "ch-cantons",
         "colors",
@@ -7,6 +9,7 @@
         "speed",
         "settings",
         "vehicles",
+        "helpers/injury",
     ];
     var datas = {};
     var waitings = {};
