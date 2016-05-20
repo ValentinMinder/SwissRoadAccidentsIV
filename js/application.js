@@ -4,5 +4,6 @@ $(document).ready(function() {
     });
     $("#pichart").pieChart();
     $("#law-periods").lawPeriod();
+    makePanelsHideable();
     $("#range").rangeYear();
 });
