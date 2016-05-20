@@ -1,16 +1,19 @@
 $(function () {
-
+    var MODE_NOMBRE = 1;
+    var MODE_PER_POP = 2;
+    var MODE_PER_VHC = 3;
     var dest = "#history";
+    var mode = MODE_NOMBRE;
     var datasNames = [
         "data",
         "population",
         "settings",
-        "speed",
         "vehicles",
     ];
     var datas = {};
     var got = 0;
     var dataGot = false;
+    var data = null;
     for (var i = 0; i < datasNames.length; i++) {
         $.getValues(datasNames[i], function (d, n) {
             datas[n] = d;
@@ -21,29 +24,51 @@ $(function () {
             }
         });
     }
+    $.get("templates/history-form.html", function(t) {
+        $(dest).before($(Mustache.render(t, {})));
+        $('input:radio[name="history_choice"]').change(function() {
+            var radio = $('input:radio[name="history_choice"]:checked');
+            mode = parseInt(radio.val());
+            dataDone();
+        })
+    });
     function dataDone() {
         if (!dataGot) return;
-        var data = [];
-        console.log("datas", datas)
-        var years = datas.data.year;
-        for (var year = datas.settings.year_from; year <= datas.settings.year_to; year++) {
-            var yearStr = "" + year;
-            var data_line = {
-                year: parseInt(yearStr),
-                deads: years["_" + yearStr].dead,
-                populations: 0,
-                vehicles: 0,
-            };
-
-            if (yearStr in datas.population) {
-                data_line.populations = datas.population[yearStr].ALL;
-            } else  console.log("No pop for ", yearStr)
-            if (yearStr in datas.vehicles) {
-                data_line.vehicles = datas.vehicles[yearStr].ALL;
-            } else console.log("No vhc for ", yearStr)
-            data.push(data_line);
+        if (!data) {
+            var data = [];
+            var years = datas.data.year;
+            var last_line = null;
+            for (var year = datas.settings.year_from; year <= datas.settings.year_to; year++) {
+                var yearStr = "" + year;
+                var yLocal = years["_" + yearStr];
+                var data_line = {
+                    year: parseInt(yearStr),
+                    deads: yLocal.dead,
+                    seriously_injureds: yLocal.seriously_injured,
+                    lightly_injureds: yLocal.lightly_injured,
+                    populations: datas.population[yearStr].ALL,
+                    vehicles: vehicles = datas.vehicles[yearStr].ALL,
+                };
+                var pop = data_line.populations * 0.001;
+                var vhc = data_line.vehicles * 0.001;
+                data_line.dead_by_pop = data_line.deads / pop;
+                data_line.dead_by_vhc = data_line.deads / vhc;
+                data_line.seriously_injured_by_pop = data_line.seriously_injureds / pop;
+                data_line.seriously_injured_by_vhc = data_line.seriously_injureds / vhc;
+                data_line.lightly_injured_by_pop = data_line.lightly_injureds / pop;
+                data_line.lightly_injured_by_vhc = data_line.lightly_injureds / vhc;
+                /*
+                 if (last_line) {
+                 last_line.d_deads1 = data_line.deads / (last_line.deads * 1.0);
+                 last_line.d_deads2 = data_line.dead_by_population / last_line.dead_by_population;
+                 last_line.d_deads3 = data_line.dead_by_vehicle / last_line.dead_by_vehicle;
+                 //last_line.d_deads2 = last_line.deads - (data_line.deads * 1.0);
+                 }
+                 */
+                data.push(data_line);
+                last_line = data_line;
+            }
         }
-        console.log("data", data);
         var margin = {top: 20, right: 20, bottom: 30, left: 50},
             width = $(dest).width() - margin.left - margin.right,
             height = $(dest).width()*0.3 - margin.top - margin.bottom;
@@ -67,9 +92,28 @@ $(function () {
             return x(d.year);
         };
         x.domain([datas.settings.year_from, datas.settings.year_to]);
-        y.domain([0, d3.max(data, function (d) {
-            return d.deads;
-        })]);
+        var text = "";
+        switch (mode) {
+            case MODE_NOMBRE:
+                y.domain([0, d3.max(data, function (d) {
+                    return Math.max(d.deads, d.seriously_injureds, d.lightly_injureds);
+                })]);
+                text = "Nombre";
+                break;
+            case MODE_PER_POP:
+                y.domain([0, d3.max(data, function (d) {
+                    return Math.max(d.dead_by_pop, d.seriously_injured_by_pop, d.lightly_injured_by_pop);
+                })]);
+                text = "Nombre par millier d'habitant";
+                break;
+            case MODE_PER_VHC:
+                y.domain([0, d3.max(data, function (d) {
+                    return Math.max(d.dead_by_vhc, d.seriously_injured_by_vhc, d.lightly_injured_by_vhc);
+                })]);
+                text = "Nombre par millier de vehicule";
+                break;
+        }
+
         $(dest).html("");
         var svg = d3.select(dest).append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -90,20 +134,43 @@ $(function () {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Price ($)");
+            .text(text);
 
-        addLine(svg, data, xYear, function(d) {
-            return y(d.alcohol * 1000);
-        }, "line_alcohol");
-        addLine(svg, data, xYear, function(d) {
-            return y(d.deads);
-        }, "line_deads");
-        addLine(svg, data, xYear, function(d) {
-            return y(d.deads / (d.populations * 0.0000005));
-        }, "line");
-        addLine(svg, data, xYear, function(d) {
-            return y(d.deads / (d.vehicles * 0.0000005));
-        }, "line");
+        switch (mode) {
+            case MODE_NOMBRE:
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.deads);
+                }, "line_deads");
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.seriously_injureds);
+                }, "line_seriously_injureds");
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.lightly_injureds);
+                }, "line_lightly_injureds");
+                break;
+            case MODE_PER_POP:
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.dead_by_pop);
+                }, "line_deads");
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.seriously_injured_by_pop);
+                }, "line_seriously_injureds");
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.lightly_injured_by_pop);
+                }, "line_lightly_injureds");
+                break;
+            case MODE_PER_VHC:
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.dead_by_vhc);
+                }, "line_deads");
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.seriously_injured_by_vhc);
+                }, "line_seriously_injureds");
+                addLine(svg, data, xYear, function(d) {
+                    return y(d.lightly_injured_by_vhc);
+                }, "line_lightly_injureds");
+                break;
+        }
     }
     $(window).resize(function() {
         dataDone();
