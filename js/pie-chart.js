@@ -17,7 +17,8 @@
 			labelDistance: 52,
 			labelFont: "12px 'Trebuchet MS', Verdana, sans-serif",
 			textPadding: 3,
-			rootName: "Suisse",
+			rootName: "CH",
+			flagHeight: 50,			
 			
         }, options );
 		
@@ -351,6 +352,7 @@ function getMousePos(canvas, evt)
 		
 		if(animationTime >= settings.expandAnimDuration) {
 			isAnimationRunning = false;
+			drawChart(settings);
 		  return;
 		}
 
@@ -392,12 +394,34 @@ function getMousePos(canvas, evt)
 	
 	context.fillStyle = 'rgb(0,0,0)';
 	context.textAlign = "center";
-	if(depthLevel > 0)
+	
+	if(depthLevel > 0 && depthLevel < settings.maxDepthLevel)
+	{
 		context.fillText( hierarchy[depthLevel-1], centreX, centreY);
+	}
 	else
-		context.fillText( settings.rootName, centreX, centreY); 
+	{
+		
+		var elementName = settings.rootName;
+		
+		if(depthLevel == settings.maxDepthLevel)
+			elementName = hierarchy[depthLevel-1];
+		
+		context.fillText( elementName, centreX, centreY - settings.flagHeight/2 - 10); 
+		
+		if(!isAnimationRunning)
+		{
+		var img = new Image;
+		img.onload = function(){ 
+		
+			var aspect = img.width / img.height;
+			context.drawImage(img, centreX-settings.flagHeight*aspect/2, centreY - settings.flagHeight/2, settings.flagHeight * aspect, settings.flagHeight);
+			
+			};
+		img.src = "img/flags/" + elementName + ".svg";
+		}
+	}
 	context.font = settings.middleTextFont;
-
   }
   
   /**
