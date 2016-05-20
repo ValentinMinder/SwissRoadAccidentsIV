@@ -21,7 +21,7 @@
         data.year_now = year_now;
 
         var year_count = data.year_to - data.year_from;
-        console.log(year_count);
+
         data.year_range = Array.apply(null, Array(year_count + 1)).map(function(_, i) {
             return (i + data.year_from);
         });
