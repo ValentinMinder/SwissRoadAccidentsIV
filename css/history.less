@@ -9,19 +9,22 @@
   }
   .line {
     fill: none;
-    stroke-width: 1.7px;
+    stroke-width: 2.2px;
   }
   .line_lightly_injureds {
     .line;
     stroke: @color_lightly_injured;
+    stroke-dasharray: 10,10;
   }
   .line_deads {
     .line;
     stroke: @color_dead;
+    stroke-dasharray: 5,5;
   }
   .line_seriously_injureds {
     .line;
     stroke: @color_seriously_injured;
+    stroke-dasharray: 15,5,5,5;
   }
 }
 #history_controls_form {
