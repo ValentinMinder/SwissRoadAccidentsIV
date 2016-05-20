@@ -27,7 +27,6 @@
         });
 
         data.year_range = JSON.stringify(data.year_range);
-        data.year_labels = JSON.stringify([1984, 1989, 2006]);
 
         var input = $(Mustache.render(template, data));
 
