@@ -6,7 +6,6 @@
 			chartSizePercent: 55,                        // The chart radius relative to the canvas width/height (in percent)
 			sliceBorderWidth: 1,                         // Width (in pixels) of the border around each slice
 			sliceBorderStyle: "#fff",                    // Colour of the border around each slice
-			sliceGradientColour: "#ddd",                 // Colour to use for one end of the chart gradient
 			chartStartAngle:    -.5 * Math.PI,              // Start the chart at 12 o'clock instead of 3 o'clock
 			collapseAnimDuration: 700,					// The duration in ms of the collapse animation
 			expandAnimDuration: 1000,					// The duration in ms of the expand animation
@@ -18,7 +17,7 @@
 			labelFont: "12px 'Trebuchet MS', Verdana, sans-serif",
 			textPadding: 3,
 			rootName: "CH",
-			flagHeight: 50,			
+			flagHeight: 50,				
 			
         }, options );
 		
@@ -36,6 +35,12 @@
 	   hierarchyArray = ["regions","cantons", ""];
 	   currentYear = 1997;
 	   dataLoaded = false;
+	   
+					
+		$.getValues("colors", function(colors) {
+			
+			victims_colors = colors;
+		});
 	   
 	   window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -186,10 +191,18 @@ function fillLastLevel(obj) {
 			chartData[currentRow]['value'] = value;
 			
 			//Colors (HSL)
-			chartColours[currentRow] = [colorSlice * currentRow, "80%", "80%" ];
+			var color = d3.rgb(victims_colors[key]).hsl();
+
+			if(isNaN(color.h))
+				color.h = 0;
+			if(isNaN(color.s))
+				color.s = 0;
+			if(isNaN(color.l))
+				color.l = 0;
+
+			chartColours[currentRow] = [(color.h / 360.0)*255.0, color.s*100 + "%", color.l*100 + "%"];
 		}
 	});
-	
 }
 
 function isCurrentLevelEmpty(settings)
@@ -437,11 +450,6 @@ function getMousePos(canvas, evt)
     var startAngle = chartData[slice]['startAngle']  + settings.chartStartAngle;
     var endAngle = chartData[slice]['endAngle']  + settings.chartStartAngle;
 
-    // Set up the gradient fill for the slice
-    var sliceGradient = context.createLinearGradient( 0, 0, canvasWidth*.75, canvasHeight*.75 );
-    sliceGradient.addColorStop( 0, settings.sliceGradientColour );
-    sliceGradient.addColorStop( 1, 'hsl(' + chartColours[slice].join(',') + ')' );
-
 	var currentSliceRadius = currentChartRadius - slice * settings.sliceRadiusDelta;
 	
 	if(currentSliceRadius > chartRadius)
@@ -455,7 +463,7 @@ function getMousePos(canvas, evt)
     context.arc( centreX, centreY, currentSliceRadius, startAngle, endAngle, false );
     context.lineTo( centreX, centreY );
     context.closePath();
-    context.fillStyle = sliceGradient;
+    context.fillStyle = 'hsl(' + chartColours[slice].join(',') + ')';
     context.fill();
 	
 	// Style the slice border appropriately
