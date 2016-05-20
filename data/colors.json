@@ -1,0 +1,5 @@
+{
+ "lightly_injured": "#FFB300",
+ "seriously_injured": "#FF0000",
+ "dead": "#000"
+}

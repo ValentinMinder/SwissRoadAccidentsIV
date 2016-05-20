@@ -1,3 +1,4 @@
+@import "colors";
 #history {
   .axis {
     path, line {
@@ -6,24 +7,21 @@
       shape-rendering: crispEdges;
     }
   }
-
   .line {
     fill: none;
     stroke-width: 1.7px;
-    stroke: #F0F;
   }
-
   .line_lightly_injureds {
     .line;
-    stroke: steelblue;
+    stroke: @color_lightly_injured;
   }
   .line_deads {
     .line;
-    stroke: red;
+    stroke: @color_dead;
   }
   .line_seriously_injureds {
     .line;
-    stroke: orange;
+    stroke: @color_seriously_injured;
   }
 }
 #history_controls_form {

@@ -1,18 +1,27 @@
 // source: https://gist.github.com/moklick/c1cc83e18a6fafd9af81#file-index-html
 (function() {
-    'use strict'
+    'use strict';
 
-    var jsonData;
-    var max_canton_victims = -1
-    var year;
+    var jsonData = null;
+    var topoData = null;
+    var max_canton_victims = -1;
+    var year = null;
 
     // victims type (dead, seriously or lightly injured) and layers colors
     var victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
-    var victims_colors = {
-        "dead": "#000",
-        "seriously_injured": "#FF0000",
-        "lightly_injured": "#FFB300"
-    };
+    var victims_colors = null;
+    $.getValues("colors", function(data) {
+        victims_colors = data;
+        updateMap();
+    });
+    $.getValues("data", function(data) {
+        jsonData = data;
+        updateMap();
+    });
+    $.getValues("ch-cantons", function(data) {
+        topoData = data;
+        updateMap();
+    });
     var template = null;
     $.get("templates/swissmap-popup.html", function(data) {
         template = data;
@@ -33,32 +42,31 @@
 
     $(document).on("year-change", function(e, y) {
         year = "_" + y; // add prefix for json data
-
         updateMap();
     });
 
     function updateMap() {
-        $.getValues("data", function(data) {
-            jsonData = data;
+        if (!jsonData) return;
+        if (!topoData) return;
+        if (!victims_colors) return;
+        if (!year) return;
+        switch (victims_type) {
+            case "dead":
+                max_canton_victims = jsonData.stats["max_canton_dead_victims"];
+                break;
 
-            switch (victims_type) {
-                case "dead":
-                    max_canton_victims = jsonData.stats["max_canton_dead_victims"];
-                    break;
+            case "seriously_injured":
+                max_canton_victims = jsonData.stats["max_canton_seriously_victims"];
+                break;
 
-                case "seriously_injured":
-                    max_canton_victims = jsonData.stats["max_canton_seriously_victims"];
-                    break;
+            case "lightly_injured":
+                max_canton_victims = jsonData.stats["max_canton_lightly_victims"];
+                break;
+        }
 
-                case "lightly_injured":
-                    max_canton_victims = jsonData.stats["max_canton_lightly_victims"];
-                    break;
-            }
+        updateLegend();
+        addTopoData();
 
-            updateLegend();
-
-            $.getValues('ch-cantons', addTopoData);
-        });
     }
 
     function updateLegend() {
@@ -111,7 +119,7 @@
         return toReturn;
     }
 
-    function addTopoData(topoData) {
+    function addTopoData() {
         map.closePopup();
         topoLayer.clearLayers();
         topoLayer.addData(topoData);

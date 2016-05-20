@@ -1,6 +1,7 @@
 from codecs import open
 import json
 from collections import OrderedDict
+import os
 
 def in_town(year):
     if year >= 1980:
@@ -75,4 +76,4 @@ for year in range(year_from, year_to+1):
     last["year_to"] = year
 
 with open("../speed.json", "w", encoding="utf-8") as f:
-    json.dump(data, f, indent=True)
+    json.dump(data, f, indent=True, newline = os.linesep)

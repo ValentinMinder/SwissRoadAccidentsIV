@@ -1,6 +1,7 @@
 (function( $ ) {
     var files = [
         "ch-cantons",
+        "colors",
         "data",
         "population",
         "speed",
