@@ -85,6 +85,7 @@
                 grades[i] = Math.round(i * 0.1 * max_canton_victims);
             }
 
+            div.innerHTML += "<h6>Nombre de victimes</h6>";
             // loop through our density intervals and generate a label with a colored square for each interval
             for (var i = 0; i < grades.length; i++) {
                 div.innerHTML +=
