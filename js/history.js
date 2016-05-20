@@ -2,7 +2,6 @@ $(function () {
 
     var dest = "#history";
     var datasNames = [
-        "alcohol",
         "data",
         "population",
         "settings",
@@ -32,7 +31,6 @@ $(function () {
             var data_line = {
                 year: parseInt(yearStr),
                 deads: years["_" + yearStr].dead,
-                alcohol: datas.alcohol[yearStr].alcohol,
                 populations: 0,
                 vehicles: 0,
             };

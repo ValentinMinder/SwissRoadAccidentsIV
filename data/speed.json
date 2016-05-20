@@ -1,202 +1,42 @@
-{
- "1975": {
+[
+ {
+  "out_town": 100,
+  "year_from": 1975,
   "in_town": 60,
-  "out_town": 100,
+  "alcohol": 0.8,
+  "year_to": 1979,
   "highway": 130
  },
- "1976": {
-  "in_town": 60,
+ {
   "out_town": 100,
+  "year_from": 1980,
+  "in_town": 50,
+  "alcohol": 0.8,
+  "year_to": 1984,
   "highway": 130
  },
- "1977": {
-  "in_town": 60,
+ {
   "out_town": 100,
-  "highway": 130
- },
- "1978": {
-  "in_town": 60,
-  "out_town": 100,
-  "highway": 130
- },
- "1979": {
-  "in_town": 60,
-  "out_town": 100,
-  "highway": 130
- },
- "1980": {
+  "year_from": 1985,
   "in_town": 50,
-  "out_town": 100,
-  "highway": 130
- },
- "1981": {
-  "in_town": 50,
-  "out_town": 100,
-  "highway": 130
- },
- "1982": {
-  "in_town": 50,
-  "out_town": 100,
-  "highway": 130
- },
- "1983": {
-  "in_town": 50,
-  "out_town": 100,
-  "highway": 130
- },
- "1984": {
-  "in_town": 50,
-  "out_town": 100,
-  "highway": 130
- },
- "1985": {
-  "in_town": 50,
-  "out_town": 100,
+  "alcohol": 0.8,
+  "year_to": 1985,
   "highway": 120
  },
- "1986": {
-  "in_town": 50,
+ {
   "out_town": 80,
+  "year_from": 1986,
+  "in_town": 50,
+  "alcohol": 0.8,
+  "year_to": 2005,
   "highway": 120
  },
- "1987": {
-  "in_town": 50,
+ {
   "out_town": 80,
-  "highway": 120
- },
- "1988": {
+  "year_from": 2006,
   "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1989": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1990": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1991": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1992": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1993": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1994": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1995": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1996": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1997": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1998": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "1999": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2000": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2001": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2002": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2003": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2004": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2005": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2006": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2007": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2008": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2009": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2010": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2011": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2012": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2013": {
-  "in_town": 50,
-  "out_town": 80,
-  "highway": 120
- },
- "2014": {
-  "in_town": 50,
-  "out_town": 80,
+  "alcohol": 0.5,
+  "year_to": 2014,
   "highway": 120
  }
-}
+]

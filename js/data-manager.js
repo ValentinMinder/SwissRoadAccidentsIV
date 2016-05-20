@@ -1,6 +1,5 @@
 (function( $ ) {
     var files = [
-        "alcohol",
         "ch-cantons",
         "data",
         "population",

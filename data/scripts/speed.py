@@ -25,17 +25,54 @@ def highway(year):
         return 100
     return "unlimited"
 
+def alcohol(year):
+    if year > 2005:
+        return 0.5
+    return 0.8
 
-data = OrderedDict()
+data = []
 
 from years import year_from, year_to
 
+last = {
+    "in_town": None,
+    "out_town": None,
+    "highway": None,
+    "alcohol": None,
+}
+
+values = (
+    ("in_town", in_town),
+    ("out_town", out_town),
+    ("highway", highway),
+    ("alcohol", alcohol),
+)
+
 for year in range(year_from, year_to+1):
-    d = OrderedDict()
-    d["in_town"] = in_town(year)
-    d["out_town"] = out_town(year)
-    d["highway"] = highway(year)
-    data[year] = d
+    v_in_down = in_town(year)
+    v_out_town = out_town(year)
+    v_highway = highway(year)
+    v_alcohol = alcohol(year)
+    same = True
+    if v_in_down != last["in_town"]:
+        same = False
+    if v_out_town != last["out_town"]:
+        same = False
+    if v_highway != last["highway"]:
+        same = False
+    if v_alcohol != last["alcohol"]:
+        same = False
+
+    if not same:
+        last = {
+            "year_from": year,
+            "in_town": v_in_down,
+            "out_town": v_out_town,
+            "highway": v_highway,
+            "alcohol": v_alcohol,
+        }
+        data.append(last)
+    last["year_to"] = year
 
 with open("../speed.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=True)

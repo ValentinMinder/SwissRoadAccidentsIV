@@ -4,8 +4,9 @@
         var template = null;
         var data = null;
 
-        $.getValues("settings", function(d) {
-            data = d;
+        $.getValues("speed", function(d) {
+            data = {}
+            data.laws = d;
             renderPeriods(that, data, template);
         });
         $.get("templates/law-period.html", function(t) {
@@ -14,6 +15,7 @@
         })
 
         $(document).on("year-change", function(e, y) {
+            /*
             if (!data) return;
 
             // trim first and last year
@@ -31,6 +33,7 @@
             $("#law-periods > div").removeClass("unhighlight-period").addClass("highlight-period");
             $("#law-periods > div:eq(" + period + ")").removeClass("highlight-period").addClass("unhighlight-period");
 
+            */
         });
     };
 
@@ -38,39 +41,7 @@
         if (!data) return;
         if (!template) return;
 
-        data.laws = [{
-            year_from: 1975,
-            year_to: 1983,
-            in_town: "unlimited",
-            out_town: "unlimited",
-            small_highway: "unlimited",
-            highway: "unlimited",
-            alcohol_sign: 0.8
-        }, {
-            year_from: 1984,
-            year_to: 1988,
-            in_town: 50,
-            out_town: "unlimited",
-            small_highway: "unlimited",
-            highway: "unlimited",
-            alcohol_sign: 0.8
-        }, {
-            year_from: 1989,
-            year_to: 2005,
-            in_town: 50,
-            out_town: 80,
-            small_highway: 100,
-            highway: 120,
-            alcohol_sign: 0.8
-        }, {
-            year_from: 2006,
-            year_to: 2014,
-            in_town: 50,
-            out_town: 80,
-            small_highway: 100,
-            highway: 120,
-            alcohol_sign: 0.5
-        }];
+
         var input = $(Mustache.render(template, data));
         var lawPeriods = $("#law-periods");
         that.html(input);
