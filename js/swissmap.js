@@ -79,12 +79,6 @@
     });
 
     function updateMap() {
-        console.log("json :" + jsonData);
-        console.log("topoData :" + topoData);
-        console.log("victims_colors :" + JSON.stringify(victims_colors));
-        console.log("year :" + year);
-        console.log("victims_type :" + victims_type);
-
         if (!jsonData) return;
         if (!topoData) return;
         if (!victims_colors) return;
