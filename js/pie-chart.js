@@ -210,7 +210,7 @@ function fillLastLevel(obj) {
 			if(isNaN(color.l))
 				color.l = 0;
 
-			chartColours[currentRow] = [(color.h / 360.0)*255.0, color.s*100 + "%", color.l*100 + "%"];
+			chartColours[currentRow] = [(color.h / 360.0)*255.0, color.s*100 + "%", "80%"];
 		}
 	});
 }
