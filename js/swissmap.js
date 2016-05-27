@@ -48,6 +48,7 @@
             $("#swissmap-controls").html(input);
 
             victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
+            updateMap();
             $("input[name=map_layer]:radio").on('change', function() {
                 victims_type = $('input[name=map_layer]:checked', '#swissmap_controls_form').val();
                 updateMap();
@@ -83,6 +84,7 @@
         if (!topoData) return;
         if (!victims_colors) return;
         if (!year) return;
+        if (!victims_type) return;
         switch (victims_type) {
             case "dead":
                 max_canton_victims = jsonData.stats["max_canton_dead_victims"];
