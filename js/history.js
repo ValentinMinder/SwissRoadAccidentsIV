@@ -30,6 +30,10 @@ $(function () {
     }
     var template = null;
     var trads = null;
+    var div = d3.select("body").append("div")
+        .attr("id", "history_tooltip")
+        .attr("class", "leaflet-popup-content-wrapper")
+        .style("opacity", 0);
     $.get("templates/history-form.html", function(t) {
         template = t;
         drawLegend();
@@ -106,14 +110,6 @@ $(function () {
                 data_line.seriously_injured_by_vhc = data_line.seriously_injureds / vhc;
                 data_line.lightly_injured_by_pop = data_line.lightly_injureds / pop;
                 data_line.lightly_injured_by_vhc = data_line.lightly_injureds / vhc;
-                /*
-                 if (last_line) {
-                 last_line.d_deads1 = data_line.deads / (last_line.deads * 1.0);
-                 last_line.d_deads2 = data_line.dead_by_population / last_line.dead_by_population;
-                 last_line.d_deads3 = data_line.dead_by_vehicle / last_line.dead_by_vehicle;
-                 //last_line.d_deads2 = last_line.deads - (data_line.deads * 1.0);
-                 }
-                 */
                 data.push(data_line);
                 last_line = data_line;
             }
@@ -187,64 +183,65 @@ $(function () {
 
         switch (mode) {
             case MODE_NOMBRE:
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.deads);
-                }, "line_deads");
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.seriously_injureds);
-                }, "line_seriously_injureds");
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.lightly_injureds);
-                }, "line_lightly_injureds");
+                addLine("deads", "line_deads");
+                addLine("seriously_injureds", "line_seriously_injureds");
+                addLine("lightly_injureds", "line_lightly_injureds");
                 break;
             case MODE_PER_POP:
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.dead_by_pop);
-                }, "line_deads");
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.seriously_injured_by_pop);
-                }, "line_seriously_injureds");
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.lightly_injured_by_pop);
-                }, "line_lightly_injureds");
+                addLine("dead_by_pop", "line_deads");
+                addLine("seriously_injured_by_pop", "line_seriously_injureds");
+                addLine("lightly_injured_by_pop", "line_lightly_injureds");
                 break;
             case MODE_PER_VHC:
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.dead_by_vhc);
-                }, "line_deads");
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.seriously_injured_by_vhc);
-                }, "line_seriously_injureds");
-                addLine(svg, data, xYear, function(d) {
-                    return y(d.lightly_injured_by_vhc);
-                }, "line_lightly_injureds");
+                addLine("dead_by_vhc", "line_deads");
+                addLine("seriously_injured_by_vhc", "line_seriously_injureds");
+                addLine("lightly_injured_by_vhc", "line_lightly_injureds");
                 break;
         }
-        addVerticalLine(svg, x, current_year, height, "line_current_year");
+        addVerticalLine(current_year, "line_current_year");
+        // normal to start at 1, skip first
         for (var i = 1 ; i < datas.speed.length ; i++) {
-            addVerticalLine(svg, x, datas.speed[i].year_from, height, "line_law_change");
+            addVerticalLine(datas.speed[i].year_from, "line_law_change");
+        }
+        function addLine(yData, klass) {
+            var line = d3.svg.line()
+                .x(xYear)
+                .y(function(d) {
+                    return y(d[yData]);
+                });
+            svg.append("path")
+                .datum(data)
+                .attr("class", klass)
+                .attr("d", line)
+                .on("mouseover", function(data) {
+                    var value = null;
+                    var year = parseInt(x.invert(d3.event.pageX-margin.left));
+                    for (var i = 0 ; i < data.length ; i++) {
+                        if (data[i].year == year) {
+                            value = data[i][yData];
+                        }
+                    }
+                    if (value % 1 !== 0) value = value.toFixed(2);
+                    div.html(year + " : " + value)
+                        .style("left", (d3.event.pageX - 2) + "px")
+                        .style("top", (d3.event.pageY - margin.top - 2) + "px")
+                        .style("opacity", .9);
+                })
+                .on("mouseout", function(d) {
+                    div.style("opacity", 0)
+                });
+        }
+        function addVerticalLine(year, klass) {
+            var xValue = x(year);
+            svg.append("line")
+                .attr("x1", xValue)  //<<== change your code here
+                .attr("y1", 0)
+                .attr("x2", xValue)  //<<== and here
+                .attr("y2", height)
+                .attr("class", klass)
         }
     }
     $(window).resize(function() {
         dataDone();
     });
-    function addLine(svg, data, x, y, klass) {
-        var line = d3.svg.line()
-            .x(x)
-            .y(y);
-        svg.append("path")
-            .datum(data)
-            .attr("class", klass)
-            .attr("d", line);
-    }
-    function addVerticalLine(svg, x, year, height, klass) {
-        var x2 = x(year)
-        console.log("year", year, typeof year, x2);
-        svg.append("line")
-            .attr("x1", x2)  //<<== change your code here
-            .attr("y1", 0)
-            .attr("x2", x2)  //<<== and here
-            .attr("y2", height)
-            .attr("class", klass)
-    }
 });
