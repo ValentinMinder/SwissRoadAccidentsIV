@@ -1,0 +1,48 @@
+VI Project Review:
+
+The Rules of Usability :
+• Bliss: Allow your users the luxury of ignorance -> OK
+• Distractions: Allow your users the luxury of inattention -> OK
+• Flow: Allow your users the luxury of attention -> ???
+• Documentation: …is an admission of failure -> OK 
+• Least Surprise: Interface design: always do the least surprising thing -> OK
+• Transparency: Every program state that the user cares about should be in the interface -> OK
+• Modelessness: The interface’s response to user actions should be consistent and never depend on hidden state -> OK
+• Seven: Users can hold at most 7±2 things at once in working storage -> OK (5)
+• Reversibility: Every operation without an undo is a horror story waiting to happen -> OK (pas de undo direct mais toute action est facilement annulée)
+• Confirmation: Every confirmation prompt should be a surprise. -> OK (pas de confirmation)
+• Failure: All failures should be lessons in how not to fail. -> OK (pas de faillure possible sauf bug)
+• Silence: When a program has nothing surprising to say, it should say nothing. -> OK 
+• Automation: Never ask the user for any information that you can autodetect, copy, or deduce. -> OK (on ne demande rien)
+• Defaults: Choose safe defaults, apply them unobtrusively, and let them be overridden if necessary. -> A voir, seule la date de départ est par défaut, voir si elle est adéquate 
+• Respect: Never mistake keeping things simple for dumbing them down, or vice-versa. -> OK, je pense, on ne prend jamais l'utilisateur pour un idiot
+• Predictability: Predictability is more important than prettiness. -> OK, il n'y a pas de comportement inattendue
+• Reality: The interface isn't finished till the end-user testing is done. -> TODO tests si on a le temps
+
+
+IV Mantra :
+	Overview first, zoom and filter, then details-on-demand -> Pas d'overview général en premier, on peut considérer le graph du bas comme overview, la map et le pie chart correspondent alors aux données filtrées (par l'année)
+	
+• Select: mark something as interesting -> KO, on ne peux pas marquer un point ou une donnée
+• Explore: show me something else -> KO, on a un filtre mais pas vraiment de explore
+• Reconfigure: show me a different arrangement -> KO, les arrangements sont fixes
+• Encode: show me a different representation -> KO/OK, on a pas d'interactions pour changer la représentation mais on a déjà plusieurs représentations
+• Abstract / Elaborate : show me more or less detail -> OK pour le pie chart
+• Filter: show me something conditonally -> OK (filtre par l'année)
+• Connect: show me related items -> KO
+
+Couleurs :
+
+• Colorblindness -> OK pour le pie chart et la map (la différentiation des couleurs n'est pas essentielle) mais KO pour le dernier graph, voir issue ----> OK
+• Contrast -> OK, pas de problème de ce côté avec le fond blanc
+• Cultural factors -> OK, le public cible étant principalement suisse pas de problème culturel et les couleurs pour les morts (noir), blessés graves (rouge) et légers (jaunes) ont été choisis justement pour correspondre, selon notre culture, à des degrés de gravité correpondants.
+• Do not rely only on colors -> voir Colorblindness ---> OK
+
+Fonts :
+
+• Sans serif fonts are better for screen -> OK
+
+
+Data-Ink ratio -> OK, dans des mesures raisonnables
+Data Density -> OK à première vue
+Lie factor -> OK, on a pas déformer les données
