@@ -10,12 +10,14 @@ $(function () {
         "data",
         "population",
         "settings",
+        "speed",
         "vehicles",
     ];
     var datas = {};
     var got = 0;
     var dataGot = false;
     var data = null;
+    var current_year = null;
     for (var i = 0; i < datasNames.length; i++) {
         $.getValues(datasNames[i], function (d, n) {
             datas[n] = d;
@@ -36,13 +38,17 @@ $(function () {
         trads = d;
         drawLegend();
     });
+    $(document).on("year-change", function(e, y) {
+        current_year = y;
+        dataDone();
+    });
     function drawLegend() {
         if (!template) return;
         if (!trads) return;
         var d = {
             legend_width: 40,
-            legend_height: 12,
-            legend_half_height: 6,
+            legend_height: 10,
+            legend_half_height: 5,
             legends: [
                 {
                     name: trads.dead.fr,
@@ -56,17 +62,26 @@ $(function () {
                     name: trads.seriously_injured.fr,
                     class: "line_seriously_injureds",
                 },
+                {
+                    name: "Année courante",
+                    class: "line_current_year",
+                },
+                {
+                    name: "Changements législatifs",
+                    class: "line_law_change",
+                },
             ]
-        }
+        };
         $(dest).before($(Mustache.render(template, d)));
         $('input:radio[name="history_choice"]').change(function() {
             var radio = $('input:radio[name="history_choice"]:checked');
             mode = parseInt(radio.val());
             dataDone();
         })
-    };
+    }
     
     function dataDone() {
+        if (!current_year) return;
         if (!dataGot) return;
         if (!data) {
             var data = [];
@@ -205,6 +220,10 @@ $(function () {
                 }, "line_lightly_injureds");
                 break;
         }
+        addVerticalLine(svg, x, current_year, height, "line_current_year");
+        for (var i = 1 ; i < datas.speed.length ; i++) {
+            addVerticalLine(svg, x, datas.speed[i].year_from, height, "line_law_change");
+        }
     }
     $(window).resize(function() {
         dataDone();
@@ -217,5 +236,15 @@ $(function () {
             .datum(data)
             .attr("class", klass)
             .attr("d", line);
+    }
+    function addVerticalLine(svg, x, year, height, klass) {
+        var x2 = x(year)
+        console.log("year", year, typeof year, x2);
+        svg.append("line")
+            .attr("x1", x2)  //<<== change your code here
+            .attr("y1", 0)
+            .attr("x2", x2)  //<<== and here
+            .attr("y2", height)
+            .attr("class", klass)
     }
 });
