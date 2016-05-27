@@ -222,9 +222,9 @@ $(function () {
                         }
                     }
                     if (value % 1 !== 0) value = value.toFixed(2);
-                    div.html(year + " : " + value)
+                    div.html("Année : " + year + "<br/>Valeur : " + value)
                         .style("left", (d3.event.pageX - 2) + "px")
-                        .style("top", (d3.event.pageY - margin.top - 2) + "px")
+                        .style("top", (d3.event.pageY - margin.top - 30) + "px")
                         .style("opacity", .9);
                 })
                 .on("mouseout", function(d) {
