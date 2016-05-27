@@ -12,7 +12,7 @@
 			sliceRadiusDelta:20,
 			maxDepthLevel: 2,
 			emptyRadiusRatio: 0.5,
-			middleTextFont: "20px 'Trebuchet MS', Verdana, sans-serif",
+			middleTextFont: "15px 'Trebuchet MS', Verdana, sans-serif",
 			labelDistance: 52,
 			labelFont: "12px 'Trebuchet MS', Verdana, sans-serif",
 			textPadding: 3,
@@ -29,6 +29,9 @@
 	   animationTime = 0;
 	   lastTime = new Date().getTime();
 	   isAnimationRunning = false;
+	   hoveredSlice = -1;
+	   centerHovered = false;
+	   needRedrawFlag = false;
 	   
 	   depthLevel = 0;
 	   hierarchy = [];
@@ -48,6 +51,11 @@
 	   
 		// Get the canvas element in the page
 		canvas = document.getElementById('chart');
+		canvas.addEventListener('mousemove', function(evt) {
+			handleChartHover(evt, settings);
+		});
+		
+		img = new Image;
 
 		// Exit if the browser isn't canvas-capable
 		if ( typeof canvas.getContext === 'undefined' ) return;
@@ -93,7 +101,7 @@
 			{
 				currentYear = year;
 				updateChart(settings);
-				drawChart(settings); //TODO animation
+				drawChart(settings);
 			}
 		});
     };
@@ -146,6 +154,8 @@ function updateChart(settings) {
 	  chartData[slice]['endAngle'] = 2 * Math.PI * ( currentPos + ( chartData[slice]['value'] / totalValue ) );
 	  currentPos += chartData[slice]['value'] / totalValue;
 	}
+	
+	needRedrawFlag = true;
 }
 
 function fillChart(obj) {
@@ -237,7 +247,6 @@ function getMousePos(canvas, evt)
 
   function handleChartClick ( clickEvent ) {
 	  
-	console.log("click");
 	// If an animation is running, we ignore any click event
 	if(!isAnimationRunning)
 	{
@@ -250,10 +259,6 @@ function getMousePos(canvas, evt)
 		var xFromCentre = mousePos.x - centreX;
 		var yFromCentre = mousePos.y - centreY;
 		var distanceFromCentre = Math.sqrt( Math.pow( Math.abs( xFromCentre ), 2 ) + Math.pow( Math.abs( yFromCentre ), 2 ) );
-		
-		console.log("centre : " + centreX + ", " + centreY);
-		console.log("mouse : " + mousePos.x + ", " + mousePos.y);
-		console.log("distanceFromCentre : " + distanceFromCentre);
 		
 		if(distanceFromCentre <= emptyRadius)
 		{
@@ -308,6 +313,45 @@ function getMousePos(canvas, evt)
 			}
 		  }
 		}
+	}
+  }
+  
+  function handleChartHover( hoverEvent, settings ) {
+	  
+	// Get the mouse cursor position at the time of the click, relative to the canvas		
+	var mousePos = getMousePos(canvas, hoverEvent);
+
+	// Was the click inside the pie chart?
+	var xFromCentre = mousePos.x - centreX;
+	var yFromCentre = mousePos.y - centreY;
+	var distanceFromCentre = Math.sqrt( Math.pow( Math.abs( xFromCentre ), 2 ) + Math.pow( Math.abs( yFromCentre ), 2 ) );
+	
+	if(distanceFromCentre <= emptyRadius) {
+		hoveredSlice = -1;
+		centerHovered = true;
+		drawChart(settings);
+	}
+	else if ( distanceFromCentre <= chartRadius ) {
+		// Find the slice that was hovered by comparing angles relative to the chart centre.
+		centerHovered = false;
+		
+		var clickAngle = Math.atan2( yFromCentre, xFromCentre ) - settings.chartStartAngle;
+		if ( clickAngle < 0 ) clickAngle = 2 * Math.PI + clickAngle;
+		for ( var slice in chartData ) {
+			if ( clickAngle >= chartData[slice]['startAngle'] && clickAngle <= chartData[slice]['endAngle'] ) {
+			  
+				hoveredSlice = slice;
+				drawChart(settings);
+				return;
+			}
+		}
+		hoveredSlice = -1;
+	}
+	else
+	{
+		hoveredSlice = -1;
+		centerHovered = false;
+		drawChart(settings);
 	}
   }
   
@@ -399,6 +443,12 @@ function getMousePos(canvas, evt)
 		drawSlice( context, slice, settings);
     }
 	
+	if(hoveredSlice >= 0 && depthLevel < settings.maxDepthLevel)
+	{
+		//Draw hovered slice border
+		drawSliceBorder( context, hoveredSlice, settings);
+	}
+	
 	//Draw Chart Center
 	context.beginPath();
 	context.arc(centreX, centreY, emptyRadius, 0, 2 * Math.PI, false);
@@ -407,34 +457,39 @@ function getMousePos(canvas, evt)
 	
 	context.fillStyle = 'rgb(0,0,0)';
 	context.textAlign = "center";
+	context.font = settings.middleTextFont;
 	
+	//Draw center border if hovered
+	if(centerHovered && depthLevel > 0)
+	{
+		context.lineWidth = 5;
+		context.strokeStyle = "skyblue";
+		context.stroke();
+	}
+	
+	//Write center text
 	if(depthLevel > 0 && depthLevel < settings.maxDepthLevel)
 	{
 		context.fillText( hierarchy[depthLevel-1], centreX, centreY);
 	}
 	else
 	{
-		
 		var elementName = settings.rootName;
 		
 		if(depthLevel == settings.maxDepthLevel)
 			elementName = hierarchy[depthLevel-1];
 		
-		context.fillText( elementName, centreX, centreY - settings.flagHeight/2 - 10); 
+		context.fillText( elementName, centreX, centreY - settings.flagHeight/2 - 10);
 		
-		if(!isAnimationRunning)
+		if(needRedrawFlag)
 		{
-		var img = new Image;
-		img.onload = function(){ 
-		
-			var aspect = img.width / img.height;
-			context.drawImage(img, centreX-settings.flagHeight*aspect/2, centreY - settings.flagHeight/2, settings.flagHeight * aspect, settings.flagHeight);
-			
-			};
-		img.src = "img/flags/" + elementName + ".svg";
+			img.src = "img/flags/" + elementName + ".svg";
+			needRedrawFlag = false;
 		}
+		
+		var aspect = img.width / img.height;
+		context.drawImage(img, centreX-settings.flagHeight*aspect/2, centreY - settings.flagHeight/2, settings.flagHeight * aspect, settings.flagHeight);
 	}
-	context.font = settings.middleTextFont;
   }
   
   /**
@@ -466,12 +521,9 @@ function getMousePos(canvas, evt)
     context.fillStyle = 'hsl(' + chartColours[slice].join(',') + ')';
     context.fill();
 	
-	// Style the slice border appropriately
-
+	// Draw a white border around the slice
 	context.lineWidth = settings.sliceBorderWidth;
 	context.strokeStyle = settings.sliceBorderStyle;
-
-    // Draw the slice border
     context.stroke();
 	
 	// Draw the slice label
@@ -488,6 +540,7 @@ function getMousePos(canvas, evt)
 	context.beginPath();
     context.moveTo( centreX + Math.cos(midAngle) * currentSliceRadius, centreY + Math.sin(midAngle) * currentSliceRadius );
 	context.lineTo( textLocationX, textLocationY );
+	context.lineWidth = 1;
 	context.strokeStyle = "rgb(0, 0, 0)";
 	context.stroke();
 	
@@ -502,4 +555,29 @@ function getMousePos(canvas, evt)
 	context.fillText( chartData[slice]['label'], textLocationX, textLocationY );
 	context.fillText( chartData[slice]['value'], textLocationX, textLocationY + textHeight * 1.5);
 	}
-}
+  }
+	
+	function drawSliceBorder( context, slice, settings)
+	{
+		// Compute the adjusted start and end angles for the slice
+		var startAngle = chartData[slice]['startAngle']  + settings.chartStartAngle;
+		var endAngle = chartData[slice]['endAngle']  + settings.chartStartAngle;
+
+		var currentSliceRadius = currentChartRadius - slice * settings.sliceRadiusDelta;
+		
+		if(currentSliceRadius > chartRadius)
+			currentSliceRadius = chartRadius;
+		else if(currentSliceRadius < 0)
+			currentSliceRadius = 0;
+		
+		// Draw the slice
+		context.beginPath();
+		context.moveTo( centreX, centreY );
+		context.arc( centreX, centreY, currentSliceRadius, startAngle, endAngle, false );
+		context.lineTo( centreX, centreY );
+		context.closePath();
+	
+		context.lineWidth = 10;
+		context.strokeStyle = 'hsl(' + chartColours[slice].join(',') + ')';
+		context.stroke();
+	}
