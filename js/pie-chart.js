@@ -31,14 +31,14 @@
 	   isAnimationRunning = false;
 	   hoveredSlice = -1;
 	   centerHovered = false;
-	   needRedrawFlag = false;
+		flagAlpha = 0;
+		needRedrawFlag = true;
 	   
 	   depthLevel = 0;
 	   hierarchy = [];
 	   hierarchyArray = ["regions","cantons", ""];
 	   currentYear = 1997;
 	   dataLoaded = false;
-	   
 					
 		$.getValues("colors", function(colors) {
 			
@@ -263,19 +263,20 @@ function getMousePos(canvas, evt)
 		if(distanceFromCentre <= emptyRadius)
 		{
 			if(depthLevel > 0)
-			  {			  
-				  do
-				  {
-						depthLevel--;
-						hierarchy.pop();
-				  }
-				  while(isCurrentLevelEmpty(settings)) //Jump to a previous non-empty level
-				  
+			  {	
 				  requestAnimationFrame(function(timestamp) {
 						animationTime = 0;
 						isAnimationRunning = true;
 						lastTime = new Date().getTime();
-						collapseAnimationStep(timestamp, settings);
+						collapseAnimationStep(timestamp, settings, function() {
+							
+							 do
+							  {
+									depthLevel--;
+									hierarchy.pop();
+							  }
+							  while(isCurrentLevelEmpty(settings)) //Jump to a previous non-empty level
+						});
 					});
 			  }
 		}
@@ -291,21 +292,23 @@ function getMousePos(canvas, evt)
 			  
 			  if(depthLevel < settings.maxDepthLevel)
 			  {
-					depthLevel++;
-					hierarchy.push(chartData[slice]['key']);
-				  
-					while(isCurrentLevelEmpty(settings)) //Ignore any empty (less than 2 elements in array) intermediate level
-					{
-						var root = getCurrentRoot();
-						depthLevel++;
-						hierarchy.push(Object.keys(root)[0]);
-					}
-
 					requestAnimationFrame(function(timestamp) {
 						animationTime = 0;
 						isAnimationRunning = true;
 						lastTime = new Date().getTime();
-						collapseAnimationStep(timestamp, settings);
+						collapseAnimationStep(timestamp, settings, function(){
+							
+							depthLevel++;
+							hierarchy.push(chartData[slice]['key']);
+
+							while(isCurrentLevelEmpty(settings)) //Ignore any empty (less than 2 elements in array) intermediate level
+							{
+								var root = getCurrentRoot();
+								depthLevel++;
+								hierarchy.push(Object.keys(root)[0]);
+							}
+							
+						});
 					});
 			  }
 			  
@@ -372,13 +375,18 @@ function getMousePos(canvas, evt)
 	  return NaN;
   }
   
-  function collapseAnimationStep(timestamp, settings)
+  function collapseAnimationStep(timestamp, settings, finishFunction)
   {	
 		// Decrease the chart radius
 		currentChartRadius = (chartRadius + settings.sliceRadiusDelta * slicesCount) * animationFunction(animationTime / settings.collapseAnimDuration, Math.PI/2.0, Math.PI);
+		
+		// Decrease the flag alpha
+		flagAlpha = animationFunction(animationTime / settings.collapseAnimDuration, Math.PI/2.0, Math.PI);
 
 		if(animationTime >= settings.collapseAnimDuration) {
 
+		finishFunction();
+		
 		updateChart(settings);
 
 		requestAnimationFrame(function(timestamp) {
@@ -397,7 +405,7 @@ function getMousePos(canvas, evt)
 		animationTime += now - lastTime;
 		lastTime = now;
 		requestAnimationFrame(function(timestamp) {
-					collapseAnimationStep(timestamp, settings);
+					collapseAnimationStep(timestamp, settings, finishFunction);
 				});  
   }
   
@@ -406,6 +414,9 @@ function getMousePos(canvas, evt)
 	  
 		// Increase the chart radius
 		currentChartRadius = (chartRadius + settings.sliceRadiusDelta * slicesCount) * animationFunction(animationTime / settings.expandAnimDuration, 0, Math.PI/2.0);
+		
+		// Increase the chart radius
+		flagAlpha = animationFunction(animationTime / settings.expandAnimDuration, 0, Math.PI/2.0);
 		
 		if(animationTime >= settings.expandAnimDuration) {
 			isAnimationRunning = false;
@@ -488,7 +499,9 @@ function getMousePos(canvas, evt)
 		}
 		
 		var aspect = img.width / img.height;
+		context.globalAlpha = flagAlpha;
 		context.drawImage(img, centreX-settings.flagHeight*aspect/2, centreY - settings.flagHeight/2, settings.flagHeight * aspect, settings.flagHeight);
+		context.globalAlpha = 1;
 	}
   }
   
