@@ -2,6 +2,8 @@
 
 Visualization of roads accidents by year
 
+![Screenshot](screen.png)
+
 ## Installation
 
 ### Requirements
